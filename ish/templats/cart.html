@@ -1,0 +1,84 @@
+{% extends 'basic.html' %}
+{% load render_table from django_tables2 %}
+{% render_table table %}
+{% block body %}
+{% load static %}
+<div class="message"style="margin-top: 160px">
+  {% if messages %}
+    {% for  message in messages %}
+        <div class="alert alert-{{message.tags}} alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{message}}
+
+        </div>
+    {% endfor %}
+  {% endif %}</div>
+  
+<!--<div class="table mt-6" style="margin-top: 160px" >{% render_table istekler %}</div>-->
+<div class="container-fluid" >
+  <table class="table table-hover">
+    <tr>      
+      <th>Product Name</th>
+      <th>Quantity</th>
+      <th>Add Quantity</th>
+      <th>Price</th>
+      <th>Total</th>
+      <th>Remove</th>
+    </tr>
+    {% for i in istekler %} 
+      <tr class="danger">
+        <td>{{i.p_name}}</td>
+        <td>{{i.quantity}}</td>
+        <td>    
+            <form id="form" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}           
+              <div class="input-group">                                   
+                    <select class="form-control" name="quantity" id="quantity" style="width: 60px" required>
+                      <option name="0" value="0" disabled selected><a href="cart{{i.i_id}}">--</a></option>
+                      <option name="1" value="1"><a href="cart{{i.i_id}}">1</a></option>
+                      <option name="2" value="2"><a href="cart{{i.i_id}}">2</a></option>
+                      <option name="3" value="3"><a href="cart{{i.i_id}}">3</a></option>
+                      <option name="4" value="4"><a href="cart{{i.i_id}}">4</a></option>
+                      <option name="5" value="5"><a href="cart{{i.i_id}}">5</a></option>
+                      <option name="6" value="6"><a href="cart{{i.i_id}}">6</a></option>
+                      <option name="7" value="7"><a href="cart{{i.i_id}}">7</a></option>
+                    </select>
+                    <button type="submit" id="submit" style="height: 33px" class="btn-success" >Add</button>                    
+                </div>
+              <input type="number" hidden id="ii" name="ii" value="{{i.i_id}}" />
+              
+            </form>    
+            <script>
+                function check() {
+                  document.form.submit();
+                  document.getElementById('form').submit();
+                }
+            </script>       
+        </td>        
+        <td>{{i.price}}</td>
+        <td>{% widthratio i.quantity 1 i.price %}</td>
+        
+        <td><a href="pri{{i.i_id}}"><button type="submit" style="height: 33px" value="{{i.i_id}}" id="submit" class="btn-danger" ><i class="fa fa-times" aria-hidden="true"></i></button></a></td>
+      </tr>
+      {% endfor %}
+    </table>    
+    {% if request.session.mm == null %}
+      <table class="table table-hover">
+        {% if i != null %}     
+          <tr style="background-color:rgb(255, 207, 117)">
+            <td><h3 style="margin-top: 0px;margin-bottom:0px">Grand Total</h3></td>
+            <td style="float:right;"><h3 style="margin-top: 0px;margin-bottom:0px">{{request.session.gtotal}}</h3></td>
+          </tr>          
+          <tr>
+              <td>
+                <a href="checkout{{i.u_id}}"><button type="submit" value="{{i.i_id}}" id="submit" class="btn btn-danger" >Checkout</button></a>
+              </td>
+          </tr> 
+        {% else %}
+          <h2 style="color:red">Your Cart Is Empty</h2>  
+        {% endif %}     
+      </table>
+    {% endif %}
+</div>
+
+{% endblock %}

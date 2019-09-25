@@ -1,0 +1,276 @@
+{% extends 'basic.html' %}
+{% load render_table from django_tables2 %}
+{% render_table table %}
+{% block body %}
+{% load static %}
+
+<div class="data">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="http://cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.css"/>
+        <link rel="stylesheet" href="http://cdn.datatables.net/responsive/1.0.2/css/dataTables.responsive.css"/>
+        <style>
+            body {
+                font-size: 140%;
+            }
+    
+            table.dataTable th,
+            table.dataTable td {
+                white-space: nowrap;
+            }
+        </style>
+        <style>
+                h1 {
+                  text-align: center;
+                }
+           
+                table {
+                  border: 1px solid;
+                  margin: 0 auto;
+                  width: 70%;
+                }
+           
+                td, th {
+                  text-align: center;
+                  border: 1px solid;
+                }
+              </style>
+<center>
+    <div class="message"style="margin-top: 160px">    
+        <a href="aplist{{1}}.html"><button class="btn List" id="{{1}}" style="width: 180px" data-toggle="modal" data-target="#myModal">Engineer List</button></a>
+        <a href="aplist{{2}}.html"><button class="btn List" id="{{2}}" style="width: 180px" data-toggle="modal" data-target="#myModal">User List</button></a>
+        <a href="aplist{{3}}.html"><button class="btn List" id="{{3}}" style="width: 180px" data-toggle="modal" data-target="#myModal">Product List</button></a>
+        <a href="aplist{{4}}.html"><button class="btn List" id="{{4}}" style="width: 180px" data-toggle="modal" data-target="#myModal">Complaint List</button></a>
+        <a href="aplist{{5}}.html"><button class="btn List" id="{{5}}" style="width: 180px" data-toggle="modal" data-target="#myModal">Transaction List</button></a>
+        <a href="aplist{{6}}.html"><button class="btn List" id="{{5}}" style="width: 180px" data-toggle="modal" data-target="#myModal">Order List</button></a>
+    </div>
+
+    {% if request.session.lstad == "englist" or request.session.lstad == "userlist" %}
+
+    {% else %}
+        <div class="date col-md-2 col-lg-2" style="margin-top: 65px" >    
+                <div class="panel panel-success">
+                    <center><b><h2>Filter Date</h2></b></center>           
+                        <div class="panel-body">                           
+                            <form method="POST" class="form-inline" enctype="multipart/form-data">
+                                {% csrf_token %}                                                                
+                                <label for="date">Enter Start Date</label>
+                                        <input type="date" name="fdate" class="form-control" value="date" required>
+                                        <label for="date" style="margin-top: 5px">Enter End Date</label>
+                                        <input type="date" name="ldate" class="form-control" value="date" required>  
+                                        <button type="submit" style="width:140px; margin-top:10px" id="submit" class="btn btn-warning" >SEARCH</button>
+                            </form> 
+                        </div>
+                    </div>       
+        </div>
+    {% endif %}
+</center> 
+        <div class="table-responsive" >
+            <table id="search" class="table table-hover">                   
+                {% if request.session.lstad == "englist" %}
+                    <center><h2 style="color:lightseagreen">IT Solution Hub Engineer List</h2>
+                    <h2><a href="GeneratePDF{{1}}"target="_blank" ><button class="btn List" id="{{1}}" style="width: 180px">Print</button></a></h2></center>
+                    <thead>
+                        <tr style="background-color:rgb(251, 253, 214)">
+                            <th>Engineer Name</th>
+                            <th>Mobile Number</th>
+                            <th>Engineer Type</th>
+                            <th>City</th>
+                            <th>Email</th>
+                            <th>Feedback</th>            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in istekler %} 
+                            <tr class="info">
+                                <td>{{i.e_name}}</td>
+                                <td>{{i.contect}}</td>
+                                <td>{{i.e_type}}</td>
+                                <td>{{i.city}}</td>
+                                <td>{{i.email}}</td>
+                                <td>{{i.feedback}}&nbsp&nbsp<i class="fas fa-star" aria-hidden="true"></i></td>                
+                            </tr>  
+                        {% endfor %}
+                    </tbody>
+                {% elif request.session.lstad == "userlist" %}
+                    <center><h2 style="color:lightseagreen">IT Solution Hub User List</h2>
+                        <h2><a href="GeneratePDF{{2}}"target="_blank" ><button class="btn List" id="{{1}}" style="width: 180px">Print</button></a></h2></center>
+                    <thead>
+                    <tr style="background-color:rgb(251, 253, 214)">
+                        <th>User Name</th>
+                        <th>Mobile Number</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>Pincode</th>
+                        <th>Email</th>            
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in ulist %} 
+                        <tr class="info">
+                            <td>{{i.u_name}}</td>
+                            <td>{{i.contect}}</td>
+                            <td>{{i.area}}</td>
+                            <td>{{i.city}}</td>
+                            <td>{{i.pincode}}</td>
+                            <td>{{i.email}}</td>                
+                        </tr>  
+                    {% endfor %}
+                    </tbody>
+                {% elif request.session.lstad == "itemlist" %}
+                    <center><h2 style="color:lightseagreen">IT Solution Hub Product List</h2>
+                        <h2><a href="GeneratePDF{{3}}"target="_blank" ><button class="btn List" id="{{1}}" style="width: 180px">Print</button></a></h2></center>
+                    <div class="col-mg-3">
+                            {% if messages %}
+                            {% for  message in messages %}
+                                <div class="alert alert-{{message.tags}}">
+                                    {{message}}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                            </div>
+                    <thead>
+                        <tr style="background-color:rgb(251, 253, 214)">
+                            <th>Image</th>
+                            <th>Product Name</th>
+                            <th>Description</th>
+                            <th>Stock</th>
+                            <th>Add Stock</th>
+                            <th>Price</th>                            
+                            <th>Rating</th> 
+                            <th>Date Of Relese</th> 
+                            <th>Edit</th>
+                            <th>Delete</th>                       
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in ilist %} 
+                            <tr class="info">
+
+                                <td><img src="/media/{{i.image}}" alt="{{i.prod_name}}" width="200" height="150"></td>
+                                <td>{{i.p_name}}</td>
+                                <td>{{i.desc}}</td>
+                                <td>{{i.stock}}</td>
+                                <td>
+                                        <form id="form" method="POST" enctype="multipart/form-data">
+                                            
+                                            {% csrf_token %}           
+                                            <input type="number" class="form-control" min="1" style="width: 80px"  id="add" name="add" />
+                                            <input type="number" hidden id="pid" name="pid" value="{{i.p_id}}" />
+                                            <button type="submit" id="submit" style="height: 33px" class="btn-success" >Add</button>                    
+                                          </form>  
+                                </td>
+                                <td>{{i.price}}</td>                                
+                                <td>{{i.rating}}&nbsp&nbsp<i class="fas fa-star" aria-hidden="true"></i></td>
+                                
+                            </strong>
+                            <td>{{i.idate}}</td> 
+                            <td><a href="edit_prod{{i.p_id}}"><i class='fas fa-edit' style='font-size:48px;color:red'></i></a></td> 
+                            <td><a href="aplist{{i.p_id}}"><i class="fa fa-trash-o" style="font-size:48px;color:red"></i></a></td> 
+                            </tr>  
+                        {% endfor %}
+                    </tbody>
+                {% elif request.session.lstad == "cmplist" %}
+                    <center><h2 style="color:lightseagreen">IT Solution Hub Complaint List</h2>
+                        <h2><a href="GeneratePDF{{4}}"target="_blank" ><button class="btn List" id="{{1}}" style="width: 180px">Print</button></a></h2></center>
+                    <thead>
+                        <tr style="background-color:rgb(251, 253, 214)">
+                            <th>User Name</th>
+                            <th>Complaint type</th>
+                            <th>Email of Engineer</th>
+                            <th>Description</th>
+                            <th>Image</th>            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in clist %} 
+                            <tr class="info">
+                                <td>{{i.u_name}}</td>
+                                <td>{{i.c_type}}</td>
+                                <td>{{i.e_email}}</td>
+                                <td>{{i.c_desc}}</td>
+                                <td>{{i.image}}</td>                
+                            </tr>  
+                        {% endfor %}
+                    </tbody>
+                {% elif request.session.lstad == "tralist" %}
+                    <center><h2 style="color:lightseagreen">IT Solution Hub Transaction List</h2>
+                        <h2><a href="GeneratePDF{{5}}"target="_blank" ><button class="btn List" id="{{1}}" style="width: 180px">Print</button></a></h2></center>
+                    <thead>
+                        <tr style="background-color:rgb(251, 253, 214)">
+                            <th>User Name</th>
+                            <th>Description</th>
+                            <th>Bill Status</th>
+                            <th>Total Price</th>                                   
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in tlist %} 
+                            {% if i.status == 0 %} 
+                                <tr class="info">
+                                    <td>{{i.u_name}}</td>
+                                    <td>{{i.c_desc}}</td>
+                                    <td>Panding</td>
+                                    <td>{{i.total}}</td>               
+                                </tr> 
+                            {% elif i.status == 1 %} 
+                                <tr class="info">
+                                    <td>{{i.u_name}}</td>
+                                    <td>{{i.c_desc}}</td>
+                                    <td>Paid</td>
+                                    <td>{{i.total}}</td>               
+                                </tr> 
+                            {% endif %}
+                        {% endfor %} 
+                    </tbody> 
+                {% elif request.session.lstad == "ordlist" %} 
+                <center><h2 style="color:lightseagreen">IT Solution Hub Selling List</h2>
+                    <h2><a href="GeneratePDF{{6}}" target="_blank" ><button class="btn List" id="{{1}}" style="width: 180px">Print</button></a></h2></center>
+                <thead>
+                <tr style="background-color:rgb(251, 253, 214)">
+                        <th>User Name</th>
+                        <th>Products Name</th>
+                        <th>Email </th>
+                        <th>Price</th>
+                        <th>Payment</th>   
+                        <th>Address</th>   
+                        <th>Pincode</th>
+                        <th>Date Of Order</th>            
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in olist %}          
+                          <tr class="info" >
+                            <td>{{i.u_name}}</td>
+                            <td>{{i.p_name}}</td>
+                            <td>{{i.email}}</td>
+                            <td>{{i.price}}</td>
+                            <td>{{i.pay}}</td>
+                            <td>{{i.address}}<br />{{i.landmark}}</td>
+                            <td>{{i.pincode}}</td>
+                            <td>{{i.odate}}</td>
+                          </tr>      
+                    {% endfor %}
+                </tbody>
+                {% endif %}  
+            </table>
+        </div>
+    </div>
+    
+{% endblock %}
+{% block js %}
+
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="//cdn.datatables.net/responsive/1.0.2/js/dataTables.responsive.js"></script>
+<script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+
+<script>
+        $(document).ready(function () {
+            $('#search').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+            });
+</script>
+
+</body>
+</html>
+{% endblock %}

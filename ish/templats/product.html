@@ -1,0 +1,108 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body %}
+<script src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
+<style>
+    .col-sm-3 img{
+      display: block;
+      max-width: 100%;
+      width :300;
+      height: 250;
+    }
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  
+<script>
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myList ").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+<div class="conatiner-fluide" style="margin-top: 160px">
+  <div class="row text-center col-md-10" style="margin-left: 100px;margin-bottom:40px"><input class="form-control" id="myInput" type="text" placeholder="Search.."> </div>
+  <div  class="row text-center">    
+    <div class="col-md-12">     
+    {% for i in items %}
+      <div class="col-sm-3">
+        <div class="thumbnail"  id="myList">
+          <img src="/media/{{i.image}}" alt="{{i.prod_name}}" width="300" height="150">
+          <p><strong>{{i.p_name}}</strong></p>
+          <p><b>Price:Rs {{i.price}}/-</b></p>
+          {% if i.rating >= 4.5  %}
+            <p style="color: red">Rating:{{i.rating|floatformat:1}}<i class="fas fa-star" aria-hidden="true"></i></p> 
+          {% elif i.rating < 4.5 and i.rating >= 3 %}
+            <p style="color: rgb(247, 114, 6)">Rating:{{i.rating|floatformat:1}}<i class="fas fa-star" aria-hidden="true"></i></p> 
+          {% elif i.rating < 3 %}
+            <p style="color: rgb(121, 118, 118)">Rating:{{i.rating|floatformat:1}}<i class="fas fa-star" aria-hidden="true"></i></p> 
+          {% endif %}  
+          {% if request.session.nm != null %}          
+            <a href="qv{{i.p_id}}"><button class="btn cart" id="{{i.p_id}}" data-toggle="modal" data-target="#myModal">Quick view</button></a>
+          {% else %}
+            <a href="login"><button class="btn cart" id="{{i.p_id}}" data-toggle="modal" data-target="#myModal">Quick view</button></a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+    {% for i in cam %}
+    <div class="col-sm-3">
+      <div class="thumbnail"  id="myList">
+        <img src="/media/{{i.image}}" alt="{{i.prod_name}}" width="300" height="150">
+        <p><strong>{{i.company}}</strong></p>
+        <p><b>Megapixel:{{i.Megapixel}}</b></p>
+        <p><b>Price:Rs {{i.cprice}}/-</b></p>
+        <p><b>vision:{{i.vision}}</b></p>
+        {% if request.session.nm != null %}          
+          <a href="qvc{{i.m_id}}"><button class="btn cart" id="{{i.m_id}}" data-toggle="modal" data-target="#myModal">Quick view</button></a>
+        {% else %}
+          <a href="login"><button class="btn cart" id="{{i.m_id}}" data-toggle="modal" data-target="#myModal">Quick view</button></a>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+  </div>
+</div>
+<script>
+  console.log('working');
+  if(localStorage.getItem('cart') == null){
+  var cart = {};
+  }
+  else
+  {
+  cart = JSON.parse(localStorage.getItem('cart'));
+  document.getElementById('cart').innerHTML = Object.keys(cart).length;
+  updateCart(cart);
+  }
+  $('.cart').click(function(){
+ 
+  var idstr = this.id.toString();
+  
+  if (cart[idstr] !=undefined){
+  cart[idstr] = cart[idstr] + 1;
+  }
+  else
+  {
+  cart[idstr] = 1;
+  }
+  updateCart(cart);
+  localStorage.setItem('cart', JSON.stringify(cart));
+  document.getElementById('cart').innerHTML = Object.keys(cart).length;
+  });
+  $(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+  });
+
+  function updateCart(cart){
+    console.log(cart)
+    for(var item in cart){
+      document.getElementById('div'+item).innerHTML="<button id='minus"+item+"'class='btn btn-primary minus'>-</button><span id='val"+item+"'>"+cart[item]+"</span><button id='plus"+item+"'class='btn btn-primary plus'>+</button>";
+    }
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body %}
+<style>
+    .col-sm-3 img{
+      display: block;
+      max-width: 100%;
+      width :300;
+      height: 250;
+    }
+</style>
+
+<div class="conatiner-fluide" style="margin-top: 160px; align-content: center">
+  <div class="row text-center">
+    {% for i in cam %}
+    <div class="col-sm-3">
+      <div class="thumbnail"  id="myList">
+        <img src="/media/{{i.image}}" alt="{{i.prod_name}}" width="300" height="150">
+        <p><strong>{{i.company}}</strong></p>
+        <p><b>Megapixel:{{i.Megapixel}}</b></p>
+        <p><b>Price:Rs {{i.cprice}}/-</b></p>
+        <p><b>vision:{{i.vision}}</b></p>
+        {% if request.session.nm != null %}          
+          <a href="complc{{i.m_id}}"><button class="btn cart" id="{{i.m_id}}" data-toggle="modal" data-target="#myModal">Give Contract</button></a>
+        {% else %}
+          <a href="login"><button class="btn cart" id="{{i.m_id}}" data-toggle="modal" data-target="#myModal">Quick view</button></a>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
+{% block js %}
+
+
+{% endblock %}

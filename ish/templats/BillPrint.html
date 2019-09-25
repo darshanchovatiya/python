@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <style>
+            h1{
+                font-size: 24px
+            }
+            h2{
+                margin-left: 60px;
+                margin-right: 60px;
+                font-size: 18px;
+            }
+        </style>
+    </head> 
+<body>
+    <div>   
+        {% if x == 1 %}    
+        <div class="Complaint Bill">
+            <center><h1 style="color: red">IT SOLTION HUB</h1>     </center>
+            <center><h1 style="color:lightseagreen">IT Solution Hub Camara Contract E-Bill</h1></center>
+            <div style="border:2px">                   
+                <h2 align="right">Date&nbsp&nbsp:&nbsp&nbsp{{ date|date:'d-m-Y' }}</h2>
+                <h2>Customer Name&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.u_name}}</h2>
+                <h2>Compney Of Camara &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.company}}</h2>
+                <h2>Megapixel &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{y.Megapixel}}Px</h2>
+                <h2>Price Of Camara&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{y.cprice}}/-Rs.</h2>
+                <h2>Grand Total&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.total}}/-Rs.</h2>
+                
+                <h2>Date Of Bill&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.tdate|date:'d-m-Y'}}</h2>  
+                <h2>Accepted By &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp  IT Solution Hub</h2>  
+                <h2 align="right" style="margin-right: 110px">Sent By</h2>  
+                <h2 align="right" style="color: red">IT SOLUTION HUB</h2>
+        </div>
+        {% elif x == 2 %} 
+        <div class="Complaint Bill">
+                <center><h1 style="color: red">IT SOLTION HUB</h1>     </center>
+                <center><h1 style="color:lightseagreen">IT Solution Hub Camara Contract E-Bill</h1></center>
+                <div style="border:2px">                   
+                    <h2 align="right">Date&nbsp&nbsp:&nbsp&nbsp{{ date|date:'d-m-Y' }}</h2>
+                    <h2>Customer Name&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.u_name}}</h2>
+                    <h2>Compney Of Server &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.company}}</h2>
+                    <h2>SwitchBoard &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{y.switch}} Switches.</h2>
+                    <h2>Grand Total&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.total}}/-Rs.</h2>
+                    
+                    <h2>Date Of Bill&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.tdate|date:'d-m-Y'}}</h2>  
+                    <h2>Accepted By &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp  IT Solution Hub</h2>  
+                    <h2 align="right" style="margin-right: 110px">Sent By</h2>  
+                    <h2 align="right" style="color: red">IT SOLUTION HUB</h2>
+            </div> 
+       {% else %}
+       <div class="Complaint Bill">
+            <center><h1 style="color: red">IT SOLTION HUB</h1>     </center>
+            <center><h1 style="color:lightseagreen">IT Solution Hub Complaint E-Bill</h1></center>
+            <div style="border:2px">                   
+                <h2 align="right">Date&nbsp&nbsp:&nbsp&nbsp{{ date|date:'d-m-Y' }}</h2>
+                <h2>Customer Name&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.u_name}}</h2>
+                <h2>Complaint Description&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{y.c_desc}}</h2>
+                <h2>Solution Description&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.c_desc}}</h2>
+                <h2>Grand Total&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.total}}</h2>
+                <h2>Date Of Bill&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.tdate|date:'d-m-Y'}}</h2>  
+                <h2>Solved By&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp  {{c.e_name}}</h2>  
+                <h2 align="right" style="margin-right: 110px">Sent By</h2>  
+                <h2 align="right" style="color: red">IT SOLUTION HUB</h2>
+        </div>
+       {% endif %}
+    </div>
+</body>
+</html>

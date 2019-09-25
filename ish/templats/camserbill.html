@@ -1,0 +1,69 @@
+{% extends 'basic.html' %}
+{% load render_table from django_tables2 %}
+{% render_table table %}
+{% block body %}
+{% load static %}
+<div class="data" style="margin-top: 160px">   
+    <div class="table-responsive" >       
+            <table id="search" class="table table-hover"> 
+                <center><h2 style="color: red">IT Solution Hub Camara Bill</h2></center>                               
+                    <tr class="success">                      
+                            <th>User Name</th>
+                            <th>Company</th>
+                            <th>Camera Requirement</th> 
+                            <th>Address</th> 
+                            <th>Contact</th> 
+                            <th>City</th>     
+                            
+                    </tr>
+                          {% for i in istekler %}
+                                     
+                                  {% if i.m_id != 0 %}
+                                      {% if i.u_id == use.u_id %}            
+                                      <tr class="danger">
+                                          <td>{{i.u_name}}</td>
+                                          <td>{{i.company}}</td>
+                                          <td>{{i.creq}}</td>
+                                          <td>{{use.area}}</td>
+                                          <td>{{use.contect}}</td>
+                                          <td>{{use.city}}</td>                                            
+                                        
+                                        </tr>
+                            {% endif %}
+                            {% endif %}
+                               
+                      {% endfor %}
+                    </table>
+                    <table id="search" class="table table-hover">
+                        <center><h2 style="color: red">IT Solution Hub Server Bill</h2></center>
+                      <tr style="background-color:cornsilk" class="success" >                          
+                            <th>User Name</th>
+                            <th>City</th>
+                            <th>Address</th>
+                            <th>Company</th>
+                            <th>Switch </th>
+                            <th>contact</th>
+                            
+                            
+                        </tr>
+                        {% for i in ser %}    
+                            
+                            {% if i.u_id == use.u_id %}                                
+                              <tr class="danger" >
+                                <td>{{i.u_name}}</td>
+                                <td>{{use.city}}</td>
+                                <td>{{use.area}}</td>
+                                <td>{{i.company}}</td>
+                                <td>{{i.switch}}</td>
+                                <td>{{i.contact}}</td>
+                               
+                              </tr>
+                              {% endif %} 
+                                
+                        {% endfor %}
+</table>
+
+
+</div>
+</div>
+{% endblock %}

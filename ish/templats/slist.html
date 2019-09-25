@@ -1,0 +1,46 @@
+{% extends 'basic.html' %}
+{% load render_table from django_tables2 %}
+{% render_table table %}
+{% block body %}
+{% load static %}
+<div class="message"style="margin-top: 160px">
+        {% if messages %}
+          {% for  message in messages %}
+              <div class="alert alert-{{message.tags}}">
+                  {{message}}
+              </div>
+          {% endfor %}
+        {% endif %}</div>
+<div class="table-responsive" >
+  <table class="table table-hover">
+    <tr>
+        <th>User Name</th>
+        <th>City</th>
+        <th>Address</th>
+        <th>Company</th>
+        <th>Switch </th>
+        <th>contact</th>
+        <th>Accept</th>
+        <th>Reject</th>   
+    </tr>
+    {% for i in cdr %}          
+        {% for j in cdg %} 
+        {% if i.u_id == j.u_id %}  
+            {% if i.status == 0 %}
+          <tr class="success" >
+            <td>{{i.u_name}}</td>
+            <td>{{j.city}}</td>
+            <td>{{j.area}}</td>
+            <td>{{i.company}}</td>
+            <td>{{i.switch}}</td>
+            <td>{{i.contact}}</td>
+            <td><a href="reqe{{i.s_id}}"><button type="submit" value="{{i.s_id}}" id="submit" class="btn btn-success" ><i class="fas fa-check"></i></button></a></td>
+            <td><a href="englist{{i.s_id}}"><button type="submit" value="{{i.s_id}}" id="cancel" class="btn btn-danger" ><i class="fas fa-times"></i></button></a></td>
+          </tr>
+          {% endif %} {% endif %} 
+          {% endfor %}     
+    {% endfor %}
+  </table>  
+</div>
+
+{% endblock %}

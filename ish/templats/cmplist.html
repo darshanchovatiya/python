@@ -1,0 +1,41 @@
+{% extends 'basic.html' %}
+{% load render_table from django_tables2 %}
+{% render_table table %}
+{% block body %}
+{% load static %}
+<div class="message"style="margin-top: 160px">
+  {% if messages %}
+    {% for  message in messages %}
+        <div class="alert alert-{{message.tags}}">
+            {{message}}
+        </div>
+    {% endfor %}
+  {% endif %}</div>
+<!--<div class="table mt-6" style="margin-top: 160px" >{% render_table istekler %}</div>-->
+<div class="table-responsive" >
+  <table class="table table-hover">
+    <tr>
+        <th>Image Of Problem</th>
+        <th>Customer Name</th>
+        <th>Complaint Type</th>
+        <th>Complaint Description</th>
+        <th>Status</th>
+        <th>Accept</th>      
+    </tr>
+    {% for i in istekler %}
+      {% if i.status == 0 %}
+        {% if i.c_type == request.session.type %}
+          <tr class="danger">
+            <td><img src="/media/{{i.image}}" alt="{{i.u_name}}" width="300" height="250"></td>
+            <td>{{i.u_name}}</td>
+            <td>{{i.c_type}}</td>
+            <td>{{i.c_desc}}</td>
+            <td>Panding</td>            
+            <td><a href="reqe{{i.c_id}}"><button type="submit" value="{{i.c_id}}" id="submit" class="btn btn-success" ><i class="fas fa-check"></i></button></a></td>
+          </tr>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+  </table>  
+</div>
+{% endblock %}

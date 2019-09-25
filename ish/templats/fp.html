@@ -1,0 +1,53 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block body %}
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<body style="margin-top: 180px">
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-lg-6 col-md-offset-3">
+		<div class="panel panel-success">
+			<div class="panel-heading"><center><b><h2>Forgot Password</h2></b></center>
+			</div>
+			<div class="panel-body">
+                
+				<form name="myform" data-toggle="validator" role="form" action=" " method="post"  id="contact_form">
+                        {% csrf_token %}
+                                                                     
+                        {% if messages %}
+                            {% for  message in messages %}
+                                <div class="alert alert-{{message.tags}}">
+                                    {{message}}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    
+					<div class="form-group">
+                            <label for="Email">Enter Email *</label>
+                            <div class="input-group" style="margin-top: 10px">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                <input id="email" name="email" placeholder="E-Mail Address" class="form-control" aria-describedby="emailHelp" data-validation="email" data-error="Bruh, that email address is invalid" type="email" required>
+                               </div>
+                            <div class="help-block with-errors"></div>
+                            <span id="error_Email" class="text-danger"></span>
+                    </div>
+                   
+                    
+                    
+                    <center><button type="submit" id="submit" class="btn btn-warning" >
+                            SUBMIT &nbsp&nbsp&nbsp<span class="glyphicon glyphicon-send"></span></button>
+                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  <button type="reset" id="reset" class="btn btn-warning" >
+                            Cancel &nbsp&nbsp&nbsp<span class="glyphicon glyphicon-remove"></span></button>    
+                    </center>
+                    
+				</form>
+
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+{% endblock %}

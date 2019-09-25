@@ -1,0 +1,135 @@
+{% extends 'basic.html' %}
+{% load render_table from django_tables2 %}
+{% render_table table %}
+{% block body %}
+{% load static %}
+<div  class="container-fluid">
+<div class="message"style="margin-top: 160px">
+  {% if messages %}
+    {% for  message in messages %}
+        <div class="alert alert-{{message.tags}}">
+            {{message}}
+        </div>
+    {% endfor %}
+  {% endif %}</div>
+<!--<div class="table mt-6" style="margin-top: 160px" >{% render_table istekler %}</div>-->
+<div class="table-responsive" >
+  <div class="complaint">
+    <center><h1 style="color:lightseagreen">IT Solution Hub Complaint Bill List</h1></center>
+  <table class="table table-hover">
+    <tr>
+        <th>Customer Name</th>
+        <th>Complaint Discription</th>
+        <th>Grand Total</th>
+        <th>Status</th>
+        <th>Pay Bill</th>
+        <th>Print</th>            
+    </tr>
+    {% for i in istekler %} 
+      {% if i.status == 0 and i.e_id != 0 %}      
+          <tr class="danger">
+            <td>{{i.u_name}}</td>
+            <td>{{i.c_desc}}</td>
+            <td>{{i.total}}</td>
+            <td>Panding</td>
+            <td><a href="cbill"><button type="submit" value="{{i.b_id}}" id="submit" class="btn btn-success" >Pay</button></a></td>
+            <td><a href="BillPrint{{i.b_id}}" target="_blank"><button type="submit"  value="{{i.b_id}}" id="submit" class="btn btn-success" >Print</button></a></td>
+          </tr>          
+      {% endif %} 
+      {% if i.status == 3 and i.e_id != 0  %}     
+        <tr class="danger">
+            <td>{{i.u_name}}</td>
+            <td>{{i.c_desc}}</td>
+            <td>{{i.total}}</td>
+            <td>Paid</td>
+            <td>Thank You</td>
+            <td><a href="BillPrint{{i.b_id}}"><button type="submit" value="{{i.b_id}}" id="submit" class="btn btn-success" >Print</button></a></td>
+        </tr>  
+      {% endif %}    
+    {% endfor %}
+  </table>
+</div>
+<div class="camara">
+    <center><h1 style="color:lightseagreen">IT Solution Hub Server Bill List</h1></center>
+    <table class="table table-hover">
+      <tr>
+          <th>Customer Name</th>
+          <th>Compney</th>
+          <th>Grand Total</th>
+          <th>Status</th>
+          <th>Pay Bill</th>
+          <th>Print</th>            
+      </tr>
+      {% for i in istekler %} 
+        {% if i.status == 0 and i.s_id != 0 %}      
+            <tr class="danger">
+              <td>{{i.u_name}}</td>
+              <td>{{i.company}}</td>
+              <td>{{i.total}}</td>
+              <td>Panding</td>
+              <td><a href="cbill"><button type="submit" value="{{i.b_id}}" id="submit" class="btn btn-success" >Pay</button></a></td>
+              <td><a href="BillPrint{{i.b_id}}" target="_blank"><button type="submit"  value="{{i.b_id}}" id="submit" class="btn btn-success" >Print</button></a></td>
+            </tr>          
+        {% endif %} 
+        {% if i.status == 3 and i.s_id != 0 %}     
+          <tr class="danger">
+              <td>{{i.u_name}}</td>
+              <td>{{i.company}}</td>
+              <td>{{i.total}}</td>
+              <td>Paid</td>
+              <td>Thank You</td>
+              <td><a href="BillPrint{{i.b_id}}"><button type="submit" value="{{i.b_id}}" id="submit" class="btn btn-success" >Print</button></a></td>
+          </tr>  
+        {% endif %}    
+      {% endfor %}
+    </table>
+</div>
+<div class="Server">
+    <center><h1 style="color:lightseagreen">IT Solution Hub Camara Contract Bill List</h1></center>
+    <table class="table table-hover">
+      <tr>
+          <th>Customer Name</th>
+          <th>Compney</th>
+          <th>Megapixel</th>
+          <th>Camara Price</th>
+          <th>Grand Total</th>
+          <th>Status</th>
+          <th>Pay Bill</th>
+          <th>Print</th>            
+      </tr>
+      {% for i in istekler %} 
+      {% for j in dr %}
+        {% if i.m_id == j.m_id %}
+        {% if i.status == 0 and i.m_id != 0 %}      
+            <tr class="danger">
+              <td>{{i.u_name}}</td>
+              <td>{{i.company}}</td>
+              <td>{{j.Megapixel}}</td>
+              <td>{{j.cprice}}</td>
+              <td>{{i.total}}</td>
+              <td>Panding</td>
+              <td><a href="cbill"><button type="submit" value="{{i.b_id}}" id="submit" class="btn btn-success" >Pay</button></a></td>
+              <td><a href="BillPrint{{i.b_id}}" target="_blank"><button type="submit"  value="{{i.b_id}}" id="submit" class="btn btn-success" >Print</button></a></td>
+            </tr>          
+        {% endif %} 
+        
+        {% if i.status == 3 and i.m_id != 0 %}   
+          <tr class="danger">
+              <td>{{i.u_name}}</td>
+              <td>{{i.company}}</td>
+              <td>{{j.Megapixel}}</td>
+              <td>{{j.cprice}}</td>
+              <td>{{i.total}}</td>
+              <td>Paid</td>
+              <td>Thank You</td>
+              <td><a href="BillPrint{{i.b_id}}"><button type="submit" value="{{i.b_id}}" id="submit" class="btn btn-success" >Print</button></a></td>
+          </tr>  
+        {% endif %} 
+        {% endif %} 
+        {% endfor %}   
+      {% endfor %}
+    </table>
+</div>
+</div>
+</div>
+{% endblock %}

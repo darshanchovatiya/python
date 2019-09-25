@@ -1,0 +1,44 @@
+{% extends 'basic.html' %}
+{% load render_table from django_tables2 %}
+{% render_table table %}
+{% block body %}
+{% load static %}
+<div class="message"style="margin-top: 160px">
+  {% if messages %}
+    {% for  message in messages %}
+        <div class="alert alert-{{message.tags}}">
+            {{message}}
+        </div>
+    {% endfor %}
+  {% endif %}</div>
+<!--<div class="table mt-6" style="margin-top: 160px" >{% render_table istekler %}</div>-->
+<div class="table-responsive" >
+  <table class="table table-hover">
+    <tr>
+      <th>Engineer Name</th>
+      <th>contect</th>
+      <th>Engineer type</th>
+      <th>city</th>
+      <th>email</th>
+      <th>status</th>
+      <th>Approve</th>
+      <th>Reject</th>
+    </tr>
+    {% for i in istekler %}
+      {% if i.status == 0 %}
+          <tr class="danger">
+            <td>{{i.e_name}}</td>
+            <td>{{i.contect}}</td>
+            <td>{{i.e_type}}</td>
+            <td>{{i.city}}</td>
+            <td>{{i.email}}</td>
+            <td>Panding</td>
+            <td><a href="reqe{{i.e_id}}"><button type="submit" value="{{i.e_id}}" id="submit" class="btn btn-success" ><i class="fas fa-check"></i></button></a></td>
+            <td><a href="englist{{i.e_id}}"><button type="submit" value="{{i.e_id}}" id="cancel" class="btn btn-danger" ><i class="fas fa-times"></i></button></a></td>
+          </tr>
+      {% endif %}
+{% endfor %}
+  </table>
+</div>
+
+{% endblock %}

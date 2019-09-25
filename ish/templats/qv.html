@@ -1,0 +1,135 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block body %}
+
+
+<body style="margin-top: 160px">
+    <style>
+        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+        .row.content {height: 550px}
+        
+        /* Set gray background color and 100% height */
+        .sidenav {
+          background-color: #f1f1f1;
+          height: 70%;
+        }
+            
+        /* On small screens, set height to 'auto' for the grid */
+        @media screen and (max-width: 767px) {
+          .row.content {height: auto;} 
+        }
+      </style>
+      {% for i in ist %}
+    <div class="container-fluid">
+        <div class="panel-body">
+            {% if messages %}
+              {% for  message in messages %}
+                <div class="alert alert-{{message.tags}}">
+                  {{message}}
+                </div>
+              {% endfor %}
+            {% endif %}
+        </div> 
+      <div class="row content">
+        <div class="col-sm-3 sidenav hidden-xs"><div style="margin-top: 30px">
+            <img src="/media/{{i.image}}" alt="{{i.prod_name}}" width="300" height="250">
+        </div>
+        <div  style="margin-top: 30px">
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}                                          
+          {{form|crispy}} 
+          {% if request.session.dis == 1 %}           
+            <button type="submit" id="submit" width="30" style="width: 300px" disabled="true" class="btn btn-warning" >Add To Cart</button>                            
+          {% elif i.stock == 0 %}
+            <p style="color: red"><strong>Please Try again latter</strong></p>
+          {% else %}
+           <button type="submit" id="submit" width="60px" style="width: 300px" class="btn btn-warning" >Add To Cart</button>                            
+          {% endif %}
+        </form>
+      </div> 
+          </div>
+        
+        
+        <div class="col-sm-9">          
+          <div class="row">
+            <div class="col-sm-6">
+              <div >
+                <h3>Product Name</h3>
+                <p><strong>{{i.p_name}}</strong></p> 
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div >
+                <h3>Price</h3>
+                <p><b>{{i.price}}/-Rs.</b></p> 
+              </div>
+            </div>
+           
+            
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+                <div >
+                    <h3>Rating</h3>
+                    <p>{% if i.rating >= 4.5  %}
+                        <p style="color: red">{{i.rating}}<i class="fas fa-star" aria-hidden="true"></i></p> 
+                      {% elif i.rating < 4.5 and i.rating >= 3 %}
+                        <p style="color: rgb(247, 114, 6)">{{i.rating}}<i class="fas fa-star" aria-hidden="true"></i></p> 
+                      {% elif i.rating < 3 %}
+                        <p style="color: rgb(121, 118, 118)">{{i.rating}}<i class="fas fa-star" aria-hidden="true"></i></p> 
+                      {% endif %} </p> 
+                  </div>
+            </div>
+            <div class="col-sm-6">
+                <div >
+                    <h3>Warranty</h3>
+                    <p> {% if i.warranty == 0 %}
+                        <p><b>NA/-</b></p>
+                        {% else %}
+                        <p><b>{{i.warranty}}/-Year</b></p>
+                        {% endif %}</p> 
+                  </div>
+            </div>
+            
+          </div>
+          <div class="row">
+              <div class="col-sm-6">
+                <div >                 
+                  <h3>Stock</h3> 
+                  <p>{% if i.stock <= 5 and i.stock != 0 %}  
+                    <p style="color: red"><strong>Hurry Only {{i.stock}} /- In Stock</strong></p>
+                  {% elif i.stock == 0 %}
+                    <p style="color: red"><strong>Product Out Of Stock</strong></p>
+                  {% else %}
+                    <p><strong>{{i.stock}}/-In Stock</strong></p>
+                  {% endif %} </p> 
+                </div>
+              </div>
+              
+              <div class="col-sm-6">
+                <div>                  
+                  <h3>Customer Rates</h3> 
+                  <p><b>{{i.crating}} + Customer Rated</b></p>     
+                </div>
+              </div>
+            </div>
+          <div class="row" style="margin-top: 20px">
+            <div class="col-sm-8">
+              <div class="well">
+                  <p><b>{{i.desc}}</b></p>  
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="well">
+                <p>IT Solution HUB</p> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    </body>
+    {% endfor %}
+{% endblock %}

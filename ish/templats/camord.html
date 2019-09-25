@@ -1,0 +1,48 @@
+{% extends 'basic.html' %}
+{% load render_table from django_tables2 %}
+{% render_table table %}
+{% block body %}
+{% load static %}
+<div class="message"style="margin-top: 160px">
+  {% if messages %}
+    {% for  message in messages %}
+        <div class="alert alert-{{message.tags}}">
+            {{message}}
+        </div>
+    {% endfor %}
+  {% endif %}</div>
+<!--<div class="table mt-6" style="margin-top: 160px" >{% render_table istekler %}</div>-->
+<div class="table-responsive" >
+  <table class="table table-hover">
+    <tr>
+      <th>User Name</th>
+      <th>Company</th>
+      <th>Camera Requirement</th> 
+      <th>Address</th> 
+      <th>Contact</th> 
+      <th>City</th>     
+      <th>Approve</th>
+      <th>Reject</th>
+    </tr>
+    {% for i in istekler %}
+        {% for j in drc %}       
+            {% if i.m_id != 0 and i.status == 0 %}
+                {% if i.u_id == j.u_id %}            
+                <tr class="danger">
+                    <td>{{i.u_name}}</td>
+                    <td>{{i.company}}</td>
+                    <td>{{i.creq}}</td>
+                    <td>{{j.area}}</td>
+                    <td>{{j.contect}}</td>
+                    <td>{{j.city}}</td>                              
+                    <td><a href="reqe{{i.c_id}}"><button type="submit" value="{{i.e_id}}" id="submit" class="btn btn-success" ><i class="fas fa-check"></i></button></a></td>
+                    <td><a href="videos{{i.c_id}}"><button type="submit" value="{{i.e_id}}" id="cancel" class="btn btn-danger" ><i class="fas fa-times"></i></button></a></td>
+                </tr>
+      {% endif %}
+      {% endif %}
+      {% endfor %}     
+{% endfor %}
+  </table>
+</div>
+
+{% endblock %}

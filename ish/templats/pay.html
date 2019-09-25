@@ -1,0 +1,108 @@
+{% extends 'basic.html' %}
+{% load render_table from django_tables2 %}
+{% render_table table %}
+{% block body %}
+{% load static %}
+
+<html>
+<head>
+    <title>Tables - PixelAdmin</title>    
+    <link rel="stylesheet" href="http://cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.css"/>
+    <link rel="stylesheet" href="http://cdn.datatables.net/responsive/1.0.2/css/dataTables.responsive.css"/>
+    <style>
+        body {
+            font-size: 140%;
+        }
+
+        table.dataTable th,
+        table.dataTable td {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body style="padding-top: 40px;">
+
+<div class="panel panel-success" style="margin: 51px; padding: 0;">
+    <div class="panel-heading">
+        <h3 class="panel-title">Search</h3>
+    </div>
+    <div class="panel-body" style="padding: 0;">
+        <div style="width: 100%; border: 1px solid red;">
+            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                        <th>Image</th>
+                        <th>Product Name</th>
+                        <th>Description</th>
+                        <th>Stock</th>
+                        <th>Price</th>                            
+                        <th>Rating</th> 
+                        <th>Date Of Relese</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for i in d %} 
+                    <tr class="info">
+                        <td><img src="/media/{{i.image}}" alt="{{i.prod_name}}" width="200" height="150"></td>
+                        <td>{{i.p_name}}</td>
+                        <td>{{i.desc}}</td>
+                        <td>{{i.stock}}</td>
+                        <td>{{i.price}}</td>                                
+                        <td>{{i.rating}}&nbsp&nbsp<i class="fas fa-star" aria-hidden="true"></i></td>
+                    </strong>
+                    <td>{{i.idate}}</td>  
+                    </tr>  
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
+
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="//cdn.datatables.net/responsive/1.0.2/js/dataTables.responsive.js"></script>
+<script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/a5734b29083/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+
+<script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+            $('.dataTables_length').addClass('bs-select');
+            });
+</script>
+
+</body>
+</html>
+{% endblock %}
+<!--
+
+      <div class="col-md-3">            
+            <div class="panel panel-success">
+                <center><b><h2>Filter Products</h2></b></center>           
+                    <div class="panel-body">                           
+                        <form method="POST" class="form-inline" enctype="multipart/form-data">
+                            {% csrf_token %}                                                                
+                            <div class="form-check">
+                                <label class="form-check-label" for="check1">
+                                  <input type="checkbox" class="form-check-input" id="check1" name="option1" value="something" checked>Option 1
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <label class="form-check-label" for="check2">
+                                  <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">Option 2
+                                </label>
+                              </div>
+                              <div class="form-check">
+                                <label class="form-check-label">
+                                  <input type="checkbox" class="form-check-input" disabled>Option 3
+                                </label>
+                              </div>
+                               <button type="submit" style="width:140px; margin-top:10px" id="submit" class="btn btn-warning" >SEARCH</button>
+                        </form> 
+                    </div>
+                      
+    </div>
+    </div>
+-->

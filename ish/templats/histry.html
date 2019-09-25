@@ -1,0 +1,47 @@
+{% extends 'basic.html' %}
+{% load render_table from django_tables2 %}
+{% render_table table %}
+{% block body %}
+{% load static %}
+<div class="table-responsive" style="margin-top: 180px" >
+    {% if messages %}
+    {% for  message in messages %}
+        <div class="alert alert-{{message.tags}}">
+            {{message}}
+        </div>
+    {% endfor %}
+    {% endif %}     
+    {{request.session.lrat}}
+  <table class="table table-hover">
+    <tr>
+        <th>User Name</th>
+        <th>Products Name</th>
+        <th>Email </th>
+        <th>Price</th>
+        <th>Payment</th>   
+        <th>Address</th>   
+        <th>Pincode</th>
+        <th>Date Of Order</th>  
+        <th>Bill</th>
+        <th>Rating</th>          
+    </tr>
+    {% for i in olist %}          
+          <tr class="success" >
+            <td>{{i.u_name}}</td>
+            <td>{{i.p_name}}</td>
+            <td>{{i.email}}</td>
+            <td>{{i.price}}</td>
+            <td>{{i.pay}}</td>
+            <td>{{i.address}}<br />{{i.landmark}}</td>
+            <td>{{i.pincode}}</td>
+            <td>{{i.odate|date:'d-m-Y'}}</td>
+            <td><a href="OrderBill{{i.o_id}}" target="_blank"><button type="submit" value="{{i.b_id}}" id="submit" class="btn btn-success" >Print</button></a></td>
+            <td><a href="rating{{i.p_id}}"><button type="submit" value="{{i.p_id}}" id="submit" class="btn btn-success" >Rate</button></a></td>
+         
+          </tr>      
+    {% endfor %}
+  </table>
+  
+</div>
+
+{% endblock %}

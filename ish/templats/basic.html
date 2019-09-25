@@ -1,0 +1,255 @@
+{%load static%}
+
+<head>
+    <link rel="shortcut icon" type="image/png" href="{% static 'image/c8.jpg' %}"/>
+    <title>IT SOLUTION HUB {% block title %} {% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="font-awesome-animation.min.css">
+<style>
+    .container {
+      padding: 80px 120px;
+    }
+    .person {
+      border: 10px solid transparent;
+      margin-bottom: 25px;
+      width: 80%;
+      height: 80%;
+      opacity: 0.7;
+    }
+    .person:hover {
+      border-color: #f1f1f1;
+    }
+    .carousel-inner img
+    .carousel-inner video
+    {
+      -webkit-filter: grayscale(90%);
+      filter: grayscale(90%); /* make all photos black and white */ 
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+    }
+    .carousel-caption h3 {
+      color: #fff !important;
+    }
+    @media (max-width: 600px) {
+      .carousel-caption {
+        display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
+      }
+    }
+    .bg-1 {
+      background: #e9e6e6;
+      color: #414040;
+    }
+    .bg-1 h3 {color: rgb(2, 2, 2);}
+    .bg-1 p {font-style: italic;}
+    .list-group-item:first-child {
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+    }
+    .list-group-item:last-child {
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    .thumbnail {
+      padding: 0 0 15px 0;
+      border: none;
+      border-radius: 0;
+      height: none;
+    }
+    .thumbnail p {
+      margin-top: 15px;
+      color: rgb(43, 42, 42);
+    }
+    .btn {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #333;
+      color: #f1f1f1;
+      border-radius: 0;
+      transition: .2s;
+    }
+    .btn:hover, .btn:focus {
+      border: 1px solid #333;
+      background-color: #fff;
+      color: #000;
+    }
+    .modal-header, h4, .close {
+      background-color: #333;
+      color: #fff !important;
+      text-align: center;
+      font-size: 30px;
+    }
+    .modal-header, .modal-body {
+      padding: 40px 50px;
+    }
+    .nav-tabs li a {
+      color: #777;
+    }
+    
+    .navbar {
+      margin-bottom: 50;
+      background-color: #2d2d30;
+      border: 0;
+      font-size: 14px !important;
+      letter-spacing: 4px;
+      opacity: 0.6;
+    }
+   
+    .navbar li a, .navbar .navbar-brand { 
+      color: #d5d5d5 !important;
+    }
+    .navbar-nav li a:hover {
+      color: #fff !important;
+    }
+    .navbar-nav li.active a {
+      color: #fff !important;
+      background-color: #29292c !important;
+    }
+    .navbar-default .navbar-toggle {
+      border-color: transparent;
+    }
+    .open .dropdown-toggle {
+      color: #fff;
+      background-color: #555 !important;
+    }
+    .dropdown-menu li a {
+      color: #000 !important;
+    }
+    .dropdown-menu li a:hover {
+      background-color: #000 !important;
+    }
+  
+    
+    </style>
+  </head>
+  <body>
+  
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid" style="padding-left: 0px;">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="img-responsive" style="padding: 0px 0px 0px 0px" href="#"><img src="{% static 'image/c8.jpg' %}"   width="100" height="120"></a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <center>          
+          <H1 class="col" style="color: #fff;" ><i>IT Solution Hub</i> </H1>         
+        </center>
+      
+        
+        <ul class="nav navbar-nav navbar-left"><li style="margin-left:20px; color:aliceblue;font-size:24px">{{request.session.lgne}}{{request.session.lgna}} {{request.session.lgnu}}</li></ul>
+          <ul class="nav navbar-nav navbar-right">
+              <li style="margin-left:20px;"><a href="index.html">HOME</a></li>
+            {% if request.session.lgna == null and request.session.lgne == null and request.session.lgnu == null %}            
+              <li style="margin-left:20px;"><a href="product">PRODUCT</a></li>
+              <li style="margin-left:20px;"><a href="location">CONTACT</a></li>
+              <li style="margin-left:20px;"><a href="login">LOGIN</a></li>
+              <li style="margin-left:20px;" class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">REGISTER
+                  <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="rege">ENGINEER</a></li>
+                    <li><a href="regu">USER</a></li>
+                  </ul>
+              </li>
+              
+            {% elif request.session.lgna != null %}         
+              <li style="margin-left:20px;"><a href="aplist{{1}}.html">Lists</a></li>
+              <li style="margin-left:20px;" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                   Upload
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li style="margin-left:20px;"><a href="videos.html">Videos</a></li>
+                  <li style="margin-left:20px;"> <a href="upload">Product</a></li>
+                  <li style="margin-left:20px;"> <a href="csc">Cameras</a></li>
+                </ul>
+              </li>
+              <li style="margin-left:20px;" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                   Request
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li style="margin-left:20px;"><a href="camord.html">Camera</a></li>
+                  <li style="margin-left:20px;"><a href="englist.html">Engineer</a></li>
+                  <li style="margin-left:20px;"><a href="slist">Server</a></li>
+                  <li style="margin-left:20px;"><a href="csblist">Bill</a></li>
+                </ul>
+              </li>
+              <li style="margin-left:20px;" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fas fa-cog"></i>
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="edit_profile">EditProfile</a></li>
+                  <li><a href="logout">Logout</a></li>
+                </ul>
+              </li>
+            {% elif request.session.lgne != null %}
+              <li style="margin-left:20px;"><a href="cmplist.html">Complaint</a></li>
+              <li style="margin-left:20px;"><a href="clist">Bill</a></li>
+              <li style="margin-left:20px;" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fas fa-cog"></i>
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li  style="margin-left:20px;"><a href="edit_profile">EditProfile</a></li>
+                  <li  style="margin-left:20px;"><a href="logout">Logout</a></li>
+                </ul>
+              </li>
+            {% elif request.session.lgnu != null %}    
+              <li style="margin-left:20px;"><a href="product">Product</a></li>              
+              <li style="margin-left:20px;"><a href="cbill">Bills</a></li> 
+                
+              <li style="margin-left:20px;"><a href="cs">Server</a></li>             
+              <li style="margin-left:20px;" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    Complaint
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li style="margin-left:20px;"><a href="compl">Complaint</a></li>
+                  <li style="margin-left:20px;"><a href="cstatus.html">Status</a></li>
+                </ul>
+              </li>
+              <li style="margin-left:20px;"><a href="cart{{0}}"><i class="fas fa-cart-plus"></i></a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fas fa-cog"></i>
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li style="margin-left:20px;"><a href="histry">History</a></li>
+                  <li style="margin-left:20px;"><a href="edit_profile">EditProfile</a></li>
+                  <li style="margin-left:20px;"><a href="logout">Logout</a></li>
+                </ul>
+              </li>
+            {% else %}              
+              
+            {% endif %}
+            
+          </ul>
+        </div>
+    </div>
+  </nav>
+  <div class="container-fluide">
+
+    {% block body %}
+    {% endblock %}
+</div>
+
+  <div class="col text-center">
+    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | IT SOLUTION HUB <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> by <a href="http://127.0.0.1:8000/" target="_blank"><b>DARSHAN CHOVATIYA</b></a>
+ </div>
+</div>
+{% block js %} {% endblock %}
+</body>
+</html>  

@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <style>
+            h1{
+                font-size: 24px
+            }
+            h2{
+                margin-left: 60px;
+                margin-right: 60px;
+                font-size: 18px;
+            }
+        </style>
+    </head> 
+<body>
+    <div>
+        <div class="Order Bill">
+                <center><h1 style="color: red">IT SOLTION HUB</h1>     </center>
+                <center><h1 style="color:lightseagreen">IT Solution Hub Product Selling E-Bill</h1></center>
+                <div style="border:2px">
+                       
+                    <h2 align="right">Date&nbsp&nbsp:&nbsp&nbsp{{ date|date:'d-m-Y' }}</h2>
+                    <h2>Customer Name &nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.u_name}}</h2>
+                    <h2>Products Name &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.p_name}}</h2>
+                    <h2>Grand Total &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.price}}</h2>
+                    <h2>Payment Method &nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.pay}}</h2>
+                    <h2>Date Of Order &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.odate|date:'d-m-Y'}}</h2>  
+                    <h2>Pincode &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp  {{d.pincode}}</h2>  
+                    <h2>Address &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp  {{d.address}}</h2>  
+                    <h2 align="right" style="margin-right: 110px">Sent By</h2>  
+                    <h2 align="right" style="color: red">IT SOLUTION HUB</h2>
+            
+        </div>
+        
+    </div>
+</body>
+</html>

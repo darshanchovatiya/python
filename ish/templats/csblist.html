@@ -1,0 +1,77 @@
+{% extends 'basic.html' %}
+{% load render_table from django_tables2 %}
+{% render_table table %}
+{% block body %}
+{% load static %}
+<div class="data" style="margin-top: 160px">   
+    <div class="table-responsive" >       
+            <table id="search" class="table table-hover"> 
+                <center><h2 style="color: red">IT Solution Hub Camara Bill</h2></center>                               
+                    <tr class="success">                      
+                            <th>User Name</th>
+                            <th>Company</th>
+                            <th>Camera Requirement</th> 
+                            <th>Address</th> 
+                            <th>Contact</th> 
+                            <th>City</th>     
+                            <th>Bill</th>
+                    </tr>
+                          {% for i in istekler %}
+                              {% for j in use %}       
+                                  {% if i.m_id != 0 %}
+                                      {% if i.u_id == j.u_id %}            
+                                      <tr class="danger">
+                                          <td>{{i.u_name}}</td>
+                                          <td>{{i.company}}</td>
+                                          <td>{{i.creq}}</td>
+                                          <td>{{j.area}}</td>
+                                          <td>{{j.contect}}</td>
+                                          <td>{{j.city}}</td>                                            
+                                        {% if i.status == 1 %}                            
+                                          <td><a href="csbill{{i.m_id}}"><button type="submit" value="{{i.c_id}}" id="submit" class="btn btn-success" >Bill</button></a></td>
+                                        {% else %}
+                                          <td> Bill Sent </td>
+                                        {% endif %}
+                                        </tr>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}     
+                      {% endfor %}
+                    </table>
+                    <table id="search" class="table table-hover">
+                        <center><h2 style="color: red">IT Solution Hub Server Bill</h2></center>
+                      <tr style="background-color:cornsilk" class="success" >                          
+                            <th>User Name</th>
+                            <th>City</th>
+                            <th>Address</th>
+                            <th>Company</th>
+                            <th>Switch </th>
+                            <th>contact</th>
+                            <th>Bill</th>
+                            
+                        </tr>
+                        {% for i in ser %}          
+                            {% for j in use %} 
+                            {% if i.u_id == j.u_id %}                                
+                              <tr class="danger" >
+                                <td>{{i.u_name}}</td>
+                                <td>{{j.city}}</td>
+                                <td>{{j.area}}</td>
+                                <td>{{i.company}}</td>
+                                <td>{{i.switch}}</td>
+                                <td>{{i.contact}}</td>
+                                {% if i.status == 0 %}
+                                 <td><a href="serbill{{i.s_id}}"><button type="submit" value="{{i.c_id}}" id="submit" class="btn btn-success" >Bill</button></a></td>
+                                {% else %}
+                                  <td>Bill Sent</td>
+                                {% endif %}
+                              </tr>
+                              {% endif %} 
+                              {% endfor %}     
+                        {% endfor %}
+</table>
+
+
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block body %}
+<body style="margin-top: 180px">
+    <div class="row">
+        <div class="col-md-6 col-sm-12 col-lg-6 col-md-offset-3">
+            <div class="panel panel-success">
+                <div class="panel-heading"><center><b><h2>User Registration Form</h2></b></center>
+                </div>
+                <div class="panel-body">
+                    <form method="POST">
+                            {% csrf_token %}
+                            <fieldset class="form-group">
+                                <legend class="border-bottom mb-4">Lets Grow with us</legend>
+                                {{form.as_p}}
+                            </fieldset>
+                            <div class="form-group">
+                                <button class="btn btn-outline-info" type="submit">Submit</button>
+                            </div>
+                    </form>
+                    <div class="border-top pt-3">
+                        <small class="text-muted">
+                            You Have An Alrady Account? <a class="ml-2" href="#">Sign In</a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load render_table from django_tables2 %}
+{% block body %}
+<body style="margin-top: 160px">
+        <div class="row" >
+            <div class="col-md-6 col-sm-12 col-lg-6 col-md-offset-3">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <center>
+                            <b><h2>Product Upload Form</h2></b>
+                        </center>
+                    </div>
+                        <div class="panel-body">
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {% if messages %}
+                                {% for  message in messages %}
+                                    <div class="alert alert-{{message.tags}}">
+                                        {{message}}
+                                    </div>
+                                {% endfor %}
+                                {% endif %}
+                                <fieldset class="form-group">
+                                        <center>
+                                            <legend class="border-bottom mb-4 alert alert-warning">
+                                                Lets Make Our Site attractive
+                                            </legend>
+                                        </center>
+                                            
+                                            {{form|crispy}}
+                                </fieldset>
+                                <div class="form-group">
+                                        <center><button type="submit" id="submit" class="btn btn-warning" >
+                                            SUBMIT &nbsp&nbsp&nbsp<span class="glyphicon glyphicon-send"></span></button>
+                                            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  <button type="reset" id="reset" class="btn btn-warning" >
+                                            Cancel &nbsp&nbsp&nbsp<span class="glyphicon glyphicon-remove"></span></button>    
+                                    </center>
+                                </div>
+                            </form>
+                        </div>
+                </div>
+            </div>
+        </div>  
+        <div class="table-responsive" >
+                <table class="table table-hover">
+                  <tr>
+                    <th>Video Name</th>
+                    <th>Video</th>
+                    <th>Video Discription</th>
+                    <th>Delete</th>
+                  </tr>
+                    {% for i in ist %}      
+                        <tr class="danger">
+                          <td>{{i.v_name}}</td>
+                          <td>{{i.video}}</td>    
+                          <td>{{i.discr}}</td>        
+                          <td><a href="videos{{i.v_id}}"><button type="submit" value="{{i.v_id}}" id="cancel" class="btn btn-danger" ><i class="fas fa-times"></i></button></a></td>
+                        </tr>                    
+                    {% endfor %}
+                </table>
+              </div>
+</body>
+{% endblock %}
