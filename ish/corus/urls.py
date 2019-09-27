@@ -62,4 +62,6 @@ urlpatterns = [
    path("location", views.location),
    path("email_check", views.email_check),
    path("mult.html", views.mult),
+   path("test", views.test),
+   path("validate_username",views.validate_username)
 ]

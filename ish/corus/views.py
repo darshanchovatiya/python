@@ -95,6 +95,7 @@ def scart(request,id):
                 #messages.success(request,'Product added Successfully!')
             return render(request,'cart.html',locals())
         return render(request,'cart.html',locals())
+        
     else: 
         for i in istekler:
             if i == 0:
@@ -224,7 +225,7 @@ def about(request):
     return render(request,'about.html')
 
 #view for registration of user
-def regu(request):
+def regu(request):   
     if request.method=="POST":
         name = request.POST.get('myName','')
         City = request.POST.get('City','')
@@ -836,8 +837,7 @@ def BillPrint(request,id,*args, **kwargs):
         d = transection.objects.get(b_id = id)
         x = d.c_id
         y= 0
-        c = 0
-        
+        c = 0        
         if d.c_id != 0 and d.e_id != 0:
             x = 0
             y = complain.objects.get(c_id = d.c_id)
@@ -1011,3 +1011,27 @@ def mult(request):
         form = mord()
                 #messages.error(request,f'Somthing might be wrong!')
     return render(request,'mult.html',{'form':form})
+
+def validate_username(request):
+    username = request.GET.get('username', None)
+    data = {
+        'is_taken': User.objects.filter(email=username).exists()
+    }
+    if data['is_taken']:
+        data['error_message'] = 'A user with this username already exists.'
+    return JsonResponse(data)
+
+def test(request):
+    if request.method == "POST":
+        form = GuestBookForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            shout = Shout(author = cd['author'], message = cd['message'])
+            shout.save()
+            form = GuestBookForm()
+    else:
+        form = GuestBookForm()
+
+    return render_to_response('test.html', {'shouts' : shouts,
+                                             'form' : form },
+                              context_instance = RequestContext(request))

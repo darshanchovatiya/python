@@ -30,12 +30,20 @@
         <td>{{i.p_name}}</td>
         <td>{{i.quantity}}</td>
         <td>    
-            <form id="form" method="POST" enctype="multipart/form-data">
+            <script src="static/scripts/main.js"></script>   
+            <script>
+              $('#post-form').on('submit', function(event){
+                event.preventDefault();
+                console.log("form submitted!")  // sanity check
+                create_post();
+            });
+          </script> 
+            <form id="post-form" method="POST" enctype="multipart/form-data">
               {% csrf_token %}           
               <div class="input-group">                                   
-                    <select class="form-control" name="quantity" id="quantity" style="width: 60px" required>
+                    <select class="form-control" name="quantity" id="post-text" style="width: 60px" required>
                       <option name="0" value="0" disabled selected><a href="cart{{i.i_id}}">--</a></option>
-                      <option name="1" value="1"><a href="cart{{i.i_id}}">1</a></option>
+                      <option name="1" id="1" value="1"><a href="cart{{i.i_id}}">1</a></option>
                       <option name="2" value="2"><a href="cart{{i.i_id}}">2</a></option>
                       <option name="3" value="3"><a href="cart{{i.i_id}}">3</a></option>
                       <option name="4" value="4"><a href="cart{{i.i_id}}">4</a></option>
@@ -43,17 +51,12 @@
                       <option name="6" value="6"><a href="cart{{i.i_id}}">6</a></option>
                       <option name="7" value="7"><a href="cart{{i.i_id}}">7</a></option>
                     </select>
-                    <button type="submit" id="submit" style="height: 33px" class="btn-success" >Add</button>                    
+                    <button type="submit" onclick="AjaxFormSubmit()" id="submit" style="height: 33px" class="btn-success" >Add</button>                    
                 </div>
               <input type="number" hidden id="ii" name="ii" value="{{i.i_id}}" />
               
-            </form>    
-            <script>
-                function check() {
-                  document.form.submit();
-                  document.getElementById('form').submit();
-                }
-            </script>       
+            </form> 
+                  
         </td>        
         <td>{{i.price}}</td>
         <td>{% widthratio i.quantity 1 i.price %}</td>

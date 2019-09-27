@@ -4,6 +4,7 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
 <script>
         $(document).ready(function(){
             $flag=1;
@@ -151,7 +152,7 @@
 			</div>
 			<div class="panel-body">
                 
-				<form name="myform" data-toggle="validator" role="form" method="POST"  id="contact_form">
+				<form name="myform" data-toggle="validator" role="form" method="POST" id="contact_form">
                         {% csrf_token %}
                                                                      
                         {% if messages %}
@@ -232,7 +233,7 @@
                             <label for="Email">Email *</label>
                             <div class="input-group">                                    
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                                <input id="email" name="email" placeholder="E-Mail Address" data-validation="required" class="form-control" type="email"  required>
+                                <input id="email" name="email" placeholder="E-Mail Address" data-validation="required" class="form-control js-validate-username" type="email"  required>
                             </div>
                             <div class="help-block with-errors"></div>
                             <span id="error_Email" class="text-danger"></span>

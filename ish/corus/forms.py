@@ -146,3 +146,8 @@ class mord(forms.ModelForm):
         class Meta:
             model = order
             fields = ['email','u_name','p_name','address','pincode','landmark']
+
+class AddProductForm(forms.ModelForm):
+    class Meta:
+        model = Uregiser
+        fields = '__all__'
