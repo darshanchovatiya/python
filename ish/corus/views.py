@@ -23,15 +23,30 @@ from twilio.rest import Client
 def index(request):
     items = item.objects.all()
     videos =video.objects.all()
+    d = cart.objects.all()
+    x=0
+    for i in d:
+        x = x + 1
+    nt = complain.objects.all()
+    request.session["noty"] = x     
     context = {'item' : items,
-                'video':videos
-    }  
+                'video':videos ,
+                'nt':nt,               
+    } 
+    nt = complain.objects.all()
+    cn = 0
+    request.session["type"] = ''
+    for i in nt:        
+        if i.c_type == request.session["type"]:
+            if i.status == 0:
+                cn = cn + 1
+    request.session["notc"] = cn
     return render(request,'index.html',context)
 
 #product view
 def prod(request):    
     items = item.objects.all()
-    cam = camera.objects.all()
+    cam = camera.objects.all()    
     return render(request, 'product.html', locals())
 
 #view for the upload product
@@ -51,6 +66,11 @@ def prod_view(request):
 
 #view for the Shoping cart
 def scart(request,id):
+    d = cart.objects.all()
+    x=0
+    for i in d:
+        x = x + 1
+    request.session["noty"] = x
     request.session["cnt"] = 0
     istekler = cart.objects.filter(u_id=request.session["nm"])  
     request.session["gtotal"]=0   
@@ -131,6 +151,11 @@ def quickview(request,id):
                 quickview.stock = pst
                 quickview.total=p_pr
                 quickview.save()
+                d = cart.objects.all()
+                x=0
+                for i in d:
+                    x = x + 1
+                request.session["noty"] = x
                 messages.success(request,'Product added in to cart!')
                 return render(request,'qv.html',locals())
             else:
@@ -525,7 +550,7 @@ def Comp_view(request):
     request.session["cmpl"] = 0
     storage = messages.get_messages(request)
     storage.used = True
-    ctype = request.POST.get('type','')
+    ctype = request.POST.get('ctype','')
     if request.method == 'POST':
         form = comp(request.POST,request.FILES)                
         if form.is_valid():
@@ -577,7 +602,7 @@ def camlist(request):
 
 #View Fro Complaint List
 def cmplist(request):  
-    istekler = complain.objects.all()
+    istekler = complain.objects.filter(c_type=request.session["type"])
     return render(request, 'cmplist.html', locals()) 
 
 #View For Video List

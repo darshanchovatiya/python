@@ -64,8 +64,9 @@ class VideoForm(forms.ModelForm):
 class comp(forms.ModelForm):
         class Meta:
             model = complain
-            fields = ['c_desc','image']
-            labels  = {                 
+            fields = ['c_type','c_desc','image']
+            labels  = {  
+                'c_type':'Complain Type',                
                 'c_desc':'Complain discription', 
                 'image':'Image Of Complaint'
             }
@@ -137,7 +138,7 @@ class editprod(forms.ModelForm):
         labels  = {
                 'p_name':'Product Name', 
                 'price':'Price', 
-                'company':'Compney', 
+                'company':'Company', 
                 'desc':'Discreptions', 
                 'image':'image'
             }

@@ -38,7 +38,7 @@ class Uregiser(models.Model):
     def __str__(self):
         return self.u_name
 
-engtype = [('Os','Os'),('Cameras','Cameras'),('Hardware','Hardware'),('Server','Server'),('Other','Other')]
+engtype = [('Os','Os'),('Cameras','Cameras'),('Hardware','Hardware'),('Server','Server'),('Other','other')]
 #engineer Register Tabel
 class eregiser(models.Model):
     e_id     = models.AutoField(primary_key=True)

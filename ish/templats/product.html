@@ -68,41 +68,6 @@
   </div>
   </div>
 </div>
-<script>
-  console.log('working');
-  if(localStorage.getItem('cart') == null){
-  var cart = {};
-  }
-  else
-  {
-  cart = JSON.parse(localStorage.getItem('cart'));
-  document.getElementById('cart').innerHTML = Object.keys(cart).length;
-  updateCart(cart);
-  }
-  $('.cart').click(function(){
- 
-  var idstr = this.id.toString();
-  
-  if (cart[idstr] !=undefined){
-  cart[idstr] = cart[idstr] + 1;
-  }
-  else
-  {
-  cart[idstr] = 1;
-  }
-  updateCart(cart);
-  localStorage.setItem('cart', JSON.stringify(cart));
-  document.getElementById('cart').innerHTML = Object.keys(cart).length;
-  });
-  $(document).ready(function(){
-    $('[data-toggle="popover"]').popover();   
-  });
 
-  function updateCart(cart){
-    console.log(cart)
-    for(var item in cart){
-      document.getElementById('div'+item).innerHTML="<button id='minus"+item+"'class='btn btn-primary minus'>-</button><span id='val"+item+"'>"+cart[item]+"</span><button id='plus"+item+"'class='btn btn-primary plus'>+</button>";
-    }
-  }
-</script>
+
 {% endblock %}

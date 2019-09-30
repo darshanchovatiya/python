@@ -13,6 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="font-awesome-animation.min.css">
+    
 <style>
     .container {
       padding: 80px 120px;
@@ -125,6 +126,16 @@
     .dropdown-menu li a:hover {
       background-color: #000 !important;
     }
+    
+    .badge-notify{
+        background:red;
+        position:relative;
+        top: -10px;
+        align:center;
+        width: 20px;
+        left: -10px;
+     }
+     
   
     
     </style>
@@ -196,7 +207,7 @@
                 </ul>
               </li>
             {% elif request.session.lgne != null %}
-              <li style="margin-left:20px;"><a href="cmplist.html">Complaint</a></li>
+              <li style="margin-left:20px;"><a href="cmplist.html">Complaint<span class="badge badge-notify">{{request.session.notc}}</span></a></li>
               <li style="margin-left:20px;"><a href="clist">Bill</a></li>
               <li style="margin-left:20px;" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -221,7 +232,8 @@
                   <li style="margin-left:20px;"><a href="cstatus.html">Status</a></li>
                 </ul>
               </li>
-              <li style="margin-left:20px;"><a href="cart{{0}}"><i class="fas fa-cart-plus"></i></a></li>
+             
+              <li style="margin-left:20px;"><a href="cart{{0}}"><i class="fas fa-cart-plus" ><span class="badge badge-notify">{{request.session.noty}}</span></i></a></li>
               <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fas fa-cog"></i>
