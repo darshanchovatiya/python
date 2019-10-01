@@ -40,6 +40,13 @@ class engprofile(forms.ModelForm):
                 'city':'City', 
                 'password':'password'
             }
+class engreg(forms.ModelForm):
+    class Meta:
+        model=eregiser
+        fields=['e_type']
+        labels  = {                
+                'e_type':'Engineer Type',                 
+            }
 class headprofile(forms.ModelForm):
     class Meta:
         model=head

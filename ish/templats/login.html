@@ -27,7 +27,10 @@
                                 </div>
                             {% endfor %}
                         {% endif %}
-                    
+                        <style>
+                                #msg {display:none;color:red}
+                                </style>
+                        <p id="msg">WARNING! Caps lock is ON.</p>
 					<div class="form-group">
                             <label for="Email">Email *</label>
                             <div class="input-group">
@@ -43,16 +46,38 @@
                             <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-key"></i></span>
                                     <input onkeyup='check();' id="Password" name="Password" data-validation="Password" placeholder="Password" class="form-control"  type="password" required>
-                                    
-                            </div>
-                            
+                                    <span class="input-group-addon"><i onmouseover="seetext(Password)" onmouseout="seeasterisk(Password)" class="fas fa-eye"></i></span>
+                                </div>
+                           
                     </div>
+                   
+                            <script>
+                                    function seetext(x){
+                                        x.type = "text";
+                                    }
+                                    function seeasterisk(x){
+                                       x.type = "password";
+                                    }
+                                </script>
                     
+                    <script>
+                            var input = document.getElementById("contact_form");
+                            var text = document.getElementById("msg");
+                            input.addEventListener("keyup", function(event) {
+                            
+                            if (event.getModifierState("CapsLock")) {
+                                text.style.display = "block";
+                              } else {
+                                text.style.display = "none"
+                              }
+                            });
+                            </script>                           
                     <center><button type="submit" id="submit" class="btn btn-warning" >
                             LOGIN &nbsp&nbsp&nbsp<span class="glyphicon glyphicon-send"></span></button>
                             &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  <button type="reset" id="reset" class="btn btn-warning" >
                             Cancel &nbsp&nbsp&nbsp<span class="glyphicon glyphicon-remove"></span></button>    
                     </center>
+                   
                     <div class="forgot-password" >
                         <a style="float: right" href="fp"><b>Forgot Password?</b></a>
                     </div>

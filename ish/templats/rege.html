@@ -123,7 +123,22 @@
                 </script>
 				<form name="myform" data-toggle="validator" role="form" action=" " method="post"  id="contact_form">
                         {% csrf_token %}
-                                                                     
+                        <style>
+                            #msg {display:none;color:red}
+                            </style>
+                        <p id="msg">WARNING! Caps lock is ON.</p>
+                        <script>
+                            var input = document.getElementById("contact_form");
+                            var text = document.getElementById("msg");
+                            input.addEventListener("keyup", function(event) {
+                            
+                            if (event.getModifierState("CapsLock")) {
+                                text.style.display = "block";
+                              } else {
+                                text.style.display = "none"
+                              }
+                            });
+                            </script>                                                     
                         {% if messages %}
                             {% for  message in messages %}
                                 <div class="alert alert-{{message.tags}}">
@@ -139,7 +154,7 @@
                                 <script type="text/javascript">
                                     $('.alphaonly').bind('keyup blur',function(){ 
                                         var node = $(this);
-                                        node.val(node.val().replace(/[^a-z]/g,'') ); }
+                                        node.val(node.val().replace(/[^a-z,A-Z]/g,'') ); }
                                     );
                                 </script>
                             </div>
@@ -153,7 +168,7 @@
                                 <script type="text/javascript">
                                     $('.alphaonly').bind('keyup blur',function(){ 
                                         var node = $(this);
-                                        node.val(node.val().replace(/[^a-z]/g,'') ); }
+                                        node.val(node.val().replace(/[^a-z,A-Z]/g,'') ); }
                                     );
                                 </script>
                             </div>
@@ -204,12 +219,21 @@
                                 }
                               }
                     </script>
+
+                    <script>
+                        function seetext(x){
+                            x.type = "text";
+                        }
+                        function seeasterisk(x){
+                           x.type = "password";
+                        }
+                    </script>
                     <div class="form-group">
                             <label for="Password">Password *</label>
                             <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-key"></i></span>
                                     <input onkeyup='check();' id="Password" minlength="8" maxlength="15" name="Password" data-validation="Password" placeholder="Password" class="form-control"  type="password" required>
-                                    
+                                    <span class="input-group-addon"><i onmouseover="seetext(Password)" onmouseout="seeasterisk(Password)" class="fas fa-eye"></i></span>
                             </div>
                             
                     </div>
@@ -218,7 +242,8 @@
                             <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-key"></i></span>
                                    <input onkeyup='check();' id="cpassword" minlength="8" maxlength="15" name="cpassword" placeholder="Conform Password" data-validation="password" class="form-control"  type="password" required>
-                            </div>
+                                   <span class="input-group-addon"><i onmouseover="seetext(cpassword)" onmouseout="seeasterisk(cpassword)" class="fas fa-eye"></i></span>
+                                </div>
                             <div class="help-block with-errors"></div>
                             <span id="Massage" class="text-danger"></span>
                     </div>

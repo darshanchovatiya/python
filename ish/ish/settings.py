@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'favicon',
     'notifications',
+    
    
 ]
 
@@ -143,3 +144,4 @@ EMAIL_PORT = 587
 DJANGO_TABLES2_TEMPLATE = 'django_tables2/bootstrap.html'
 
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
+

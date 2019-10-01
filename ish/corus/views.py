@@ -18,7 +18,7 @@ from django.views.generic import View
 from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.db.models import Avg, Count, Min, Sum
-from twilio.rest import Client
+from clockwork import clockwork
 #index View
 def index(request):
     items = item.objects.all()
@@ -335,7 +335,7 @@ def rege(request):
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [email]
             send_mail( subject, message, email_from, recipient_list )
-            return render(request,'rege.html')
+            return render(request,'rege.html')            
     else:
         #messages.warning(request,f'Somthing Might Be Wrong Please Tray Again Later!')
         return render(request,'rege.html')
@@ -352,9 +352,10 @@ def login(request):
             else:
                 request.session["lgne"] ='Welcome' + loge.e_name    
                 request.session["prof"] = loge.email 
-                request.session["type"] = loge.e_type
+                request.session["etype"] = loge.e_type
                 request.session["acc"] = loge.e_name 
-                request.session["eid"] = loge.e_id   
+                request.session["eid"] = loge.e_id 
+                request.session["ty"]  = loge.e_type
                 return redirect('index.html')
         elif Uregiser.objects.filter(email=request.POST['email'],password=request.POST['Password']).exists():
             loge = Uregiser.objects.get(email=request.POST['email'],password=request.POST['Password'])
@@ -559,13 +560,20 @@ def Comp_view(request):
             Comp_view.u_id =request.session["nm"]
             Comp_view.u_name = request.session["unm"]
             Comp_view.save()
-            request.session["cmpl"] = 1
-            #client = Client("ACxxxxxxxxxxxxxx", "zzzzzzzzzzzzz")
-            #recipients = eregiser.objects.filter(e_type=ctype)
-            #for i in recipients:
-            #    client.messages.create(to="+919429292340", 
-            #           from_="+916355037177", 
-            #           body="Hello My Love!")
+            request.session["cmpl"] = 1 
+            api = clockwork.API('bca1a228e1712170993af1e924770413729db73c')
+
+            message = clockwork.SMS(
+                to = '6355037177',
+                message = 'This is a test message.')
+
+            response = api.send(message)
+
+            if response.success:
+                print (response.id)
+            else:
+                print (response.error_code)
+                print (response.error_message)
             messages.success(request,'Complaint Sent Successfully!')
             return render(request,'compl.html')
     else:
@@ -602,7 +610,7 @@ def camlist(request):
 
 #View Fro Complaint List
 def cmplist(request):  
-    istekler = complain.objects.filter(c_type=request.session["type"])
+    istekler = complain.objects.filter(c_type = request.session["ty"])
     return render(request, 'cmplist.html', locals()) 
 
 #View For Video List
