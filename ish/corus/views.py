@@ -19,6 +19,9 @@ from django.template.loader import get_template
 from django.core.mail import EmailMessage
 from django.db.models import Avg, Count, Min, Sum
 from clockwork import clockwork
+import json
+
+from django.template import RequestContext
 #index View
 def index(request):
     items = item.objects.all()
@@ -32,15 +35,7 @@ def index(request):
     context = {'item' : items,
                 'video':videos ,
                 'nt':nt,               
-    } 
-    nt = complain.objects.all()
-    cn = 0
-    request.session["type"] = ''
-    for i in nt:        
-        if i.c_type == request.session["type"]:
-            if i.status == 0:
-                cn = cn + 1
-    request.session["notc"] = cn
+    }    
     return render(request,'index.html',context)
 
 #product view
@@ -206,6 +201,7 @@ def checkout(request,id):
             cart.objects.filter(u_id = request.session["nm"]).delete()
             del request.session["gtotal"]
             request.session['sa'] = 1
+            request.session["noty"] = 0
             messages.success(request,'Your Order Placed!')
             return render(request,'checkout.html')
         return render(request,'checkout.html',{'form':form})
@@ -356,7 +352,7 @@ def login(request):
                 request.session["acc"] = loge.e_name 
                 request.session["eid"] = loge.e_id 
                 request.session["ty"]  = loge.e_type
-                return redirect('index.html')
+                return redirect('cmplist.html')
         elif Uregiser.objects.filter(email=request.POST['email'],password=request.POST['Password']).exists():
             loge = Uregiser.objects.get(email=request.POST['email'],password=request.POST['Password'])
             request.session["lgnu"] ='Welcome' + loge.u_name    
@@ -610,7 +606,13 @@ def camlist(request):
 
 #View Fro Complaint List
 def cmplist(request):  
+    cn = 0
+    request.session["notc"] = 0
     istekler = complain.objects.filter(c_type = request.session["ty"])
+    for i in istekler:    
+        if i.status == 0:
+            cn = cn + 1
+            request.session["notc"] = cn
     return render(request, 'cmplist.html', locals()) 
 
 #View For Video List
@@ -1056,15 +1058,11 @@ def validate_username(request):
 
 def test(request):
     if request.method == "POST":
-        form = GuestBookForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            shout = Shout(author = cd['author'], message = cd['message'])
-            shout.save()
-            form = GuestBookForm()
-    else:
-        form = GuestBookForm()
-
-    return render_to_response('test.html', {'shouts' : shouts,
-                                             'form' : form },
-                              context_instance = RequestContext(request))
+        form = productu(request.POST)
+        message = 'something wrong!'
+        if(form.is_valid()):
+            form.save()
+            messages.success(request,'Product Upload Successfully!')             
+            return HttpResponse(json.dumps({'message': message}))
+    return render_to_response('test.html',
+            {'form':productu()}, RequestContext(request))
