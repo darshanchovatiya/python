@@ -84,7 +84,7 @@ class camera(models.Model):
 class head(models.Model):
     a_id = models.AutoField(primary_key=True)
     a_name = models.CharField(max_length=30)
-    contect = contect = models.IntegerField(default=0,max_length=10)
+    contect = models.CharField(max_length=10,default="")
     email = models.CharField(max_length=30,unique = True)
     password = models.CharField(max_length=15)  
     def __str__(self):
@@ -104,7 +104,7 @@ class complain(models.Model):
     creq = models.IntegerField(default=0)
     c_desc = models.CharField(max_length=200)
     status = models.IntegerField(default=0)
-    contect = models.IntegerField(default=0,max_length=10)
+    contect = models.CharField(max_length=10,default="")
     rstatus = models.IntegerField(default=0)
     e_email = models.CharField(max_length=30,null=True)
     image = models.ImageField(upload_to="image",default="")
@@ -164,8 +164,7 @@ class cart(models.Model):
     i_id = models.AutoField(primary_key=True)
     u_id = models.IntegerField(default=0)
     p_id = models.IntegerField(default=0)
-    p_name = models.CharField(max_length=30)
-    stock=models.IntegerField(default=0)
+    p_name = models.CharField(max_length=30)    
     quantity = models.IntegerField(default=0)
     price = models.IntegerField(default=0)
     total = models.IntegerField(default=0)

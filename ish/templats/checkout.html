@@ -3,6 +3,14 @@
 {% load crispy_forms_tags %}
 {% block body %}
 <body style="margin-top: 160px">
+    <style>
+        label{
+            font-size: 22px;
+        }
+        input[type=radio]{
+            font-size: 20px;
+        }
+    </style>
     <div class="row">
         <div class="col-md-6 col-sm-12 col-lg-6 col-md-offset-3">
             <div class="panel panel-success">
@@ -22,15 +30,15 @@
                        
                         <fieldset class="form-group">
                             <center><legend class="border-bottom mb-4 alert alert-warning">Corus It Solution</legend></center>
-                            <h3>Customer Name &nbsp:{{request.session.cnm}}</h3>
-                            <h3>Customer Email &nbsp  :{{request.session.ceml}}</h3>
+                            <h3> <label for="name">Customer Name</label><input type="text" class="form-control" value=" {{request.session.cnm}}" readonly /></h3>
+                            <h3><label for="email">Customer Email</label><input type="text" class="form-control" value=" {{request.session.ceml}}" readonly /> </h3>
                             <!--<h3>Product Name &nbsp&nbsp&nbsp&nbsp:{{request.session.cpnm}}</h3>
                             <h3>Product Quantity :{{request.session.cqty}}</h3>-->
-                            <h3>Grand Total &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp :{{request.session.gtotal}} Rs</h3>
+                            <h3><label for="Total">Grand Total</label><input type="text" class="form-control" value=" {{request.session.gtotal}} /- Rs" readonly /> </h3>
                                {{form|crispy}}
-                               <input type="radio" name="pay" value="Case On delivery"> Case On delivery<br>
-                               <input type="radio" name="pay" value="Net Banking"> Net Banking<br>
-                               <input type="radio" name="pay" value="paytm"> Paytm
+                               <input type="radio" name="pay" value="Case On delivery"><b> Case On delivery</b><br>
+                               <input type="radio" name="pay" value="Net Banking"><b> Net Banking</b><br>
+                               <input type="radio" name="pay" value="paytm"> <b>Paytm</b>
                                  
                         </fieldset>
                         <div class="form-group">

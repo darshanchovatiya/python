@@ -142,8 +142,7 @@ def quickview(request,id):
                 quickview.u_id=request.session["nm"]
                 quickview.p_name=p_nm
                 quickview.quantity=1
-                quickview.price=p_pr
-                quickview.stock = pst
+                quickview.price=p_pr                
                 quickview.total=p_pr
                 quickview.save()
                 d = cart.objects.all()
