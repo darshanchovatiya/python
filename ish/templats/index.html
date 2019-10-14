@@ -68,7 +68,7 @@
                     <img src="/media/{{i.image}}" alt="New York" width="300" height="250">
                     <p><strong>Name:{{i.p_name}}</strong></p>
                     <p><strong>Price:Rs {{i.price}}/-</strong></p>
-                    <p style="color: red">Rating:{{i.rating}}<i class="fas fa-star" aria-hidden="true"></i><br />
+                    <p style="color: red">Rating:{{i.rating|floatformat:1}}<i class="fas fa-star" aria-hidden="true"></i><br />
                     <button style="margin-top:5%" class="btn" id="{{i.prod_id}}" data-toggle="modal" data-target="#myModal">Buy Now</button>
                 </div>
               </div>

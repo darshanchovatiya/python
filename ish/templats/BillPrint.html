@@ -15,59 +15,151 @@
                 margin-right: 60px;
                 font-size: 18px;
             }
+            .header{
+                width: 100%;
+                height: 22%;              
+            }
+            .rcorners3{
+            border-radius:10px 100px / 120px;
+            border: 2px solid black;
+            padding: 10px;
+            font-size:14px;
+           }
+           table{
+            border: 1px solid black; 
+           }
         </style>
     </head> 
 <body>
-    <div>   
-        {% if x == 1 %}    
-        <div class="Complaint Bill">
-            <center><h1 style="color: red">IT SOLTION HUB</h1>     </center>
+    <div class="table-responsive" style="font-size: 15px;">
+         <!------ Header ------->
+         <div class="header">
+                <div align="center" style="margin-bottom:0px;">
+                        <h1><span style="color:rgb(76, 139, 223);">IT SOLUTION HUB</span></h1> 
+                        <span style="margin-left:150px;">Shop No-2, Rubi Trade Center, <br />Near Gitanjali Petrol Pump,<br />Surat, Gujarat</span>
+                </div>                      
+                <div align="right">
+                        <span style="color:lightseagreen">Date: &nbsp;&nbsp;{{ date|date:'d-m-Y' }}</span><br>
+                        <span style="color:lightseagreen">Receipt No.: &nbsp;&nbsp;{{ date|date:'d-m-Y' }}</span><br>
+                </div>                   
+            </div>              
+            <br>
+        {% if x == 1 %}  
+        <div class="rcorners3">
+                <span style="color:rgb(76, 139, 223);font-size:15px; font-weight: bold;" >Customer Details:</span><br><br>
+                <span><b>Customer Name:</b>&nbsp;&nbsp;&nbsp;<u>{{d.u_name}}</u></span>  <br /> 
+                <span><b>Address:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.address}}</u></span>  <br> 
+                <span><b>Pincode:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.pincode}}</u></span>  
+         </div>
             <center><h1 style="color:lightseagreen">IT Solution Hub Camara Contract E-Bill</h1></center>
-            <div style="border:2px">                   
-                <h2 align="right">Date&nbsp&nbsp:&nbsp&nbsp{{ date|date:'d-m-Y' }}</h2>
-                <h2>Customer Name&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.u_name}}</h2>
-                <h2>Compney Of Camara &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.company}}</h2>
-                <h2>Megapixel &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{y.Megapixel}}Px</h2>
-                <h2>Price Of Camara&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{y.cprice}}/-Rs.</h2>
-                <h2>Grand Total&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.total}}/-Rs.</h2>
-                
-                <h2>Date Of Bill&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.tdate|date:'d-m-Y'}}</h2>  
-                <h2>Accepted By &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp  IT Solution Hub</h2>  
-                <h2 align="right" style="margin-right: 110px">Sent By</h2>  
-                <h2 align="right" style="color: red">IT SOLUTION HUB</h2>
-        </div>
+            <table class="table table-hover">   
+                              
+                    <thead>
+                    <tr style="border-bottom: 1px solid black; padding-top: 3px; color:rgb(76, 139, 223);">                                   
+                        <th>Compney Of Camara</th>
+                        <th>Megapixelr</th>
+                        <th>Price Of Camara</th>                                    
+                        <th>Grand Total</th>
+                        <th>Date Of Bill</th>   
+                        <th>Accepted By</th>  
+                                 
+                    </tr>
+                </thead>         
+                <tbody>                                 
+                        <tr class="danger" style="padding: 4px;" >                                       
+                            <td align="center">{{d.company}}</td>
+                            <td align="center">{{y.Megapixel}}</td>                                       
+                            <td align="center">{{y.cprice}}/-Rs.</td>
+                            <td align="center">{{d.total}}/-Rs.</td>
+                            <td>{{d.tdate|date:'d-m-Y'}}</td>   
+                            <td>IT Solution Hub</td>
+                        </tr>  
+                </tbody> 
+            </table>
+            <div align="right" style="margin-top:40px;margin-right:10px;">
+                    <span><b>Sub Total:</b>&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.price}}</u></span>  <br /> 
+                    <span><b>Tax:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>3522</u></span>  <br> 
+                    <span style="color:rgb(76, 139, 223);"><b>Grand Total:</b>&nbsp;&nbsp;&nbsp;<u>{{d.price}}</u></span>  
+            
+            </div>
+         
+       
         {% elif x == 2 %} 
-        <div class="Complaint Bill">
-                <center><h1 style="color: red">IT SOLTION HUB</h1>     </center>
-                <center><h1 style="color:lightseagreen">IT Solution Hub Camara Contract E-Bill</h1></center>
-                <div style="border:2px">                   
-                    <h2 align="right">Date&nbsp&nbsp:&nbsp&nbsp{{ date|date:'d-m-Y' }}</h2>
-                    <h2>Customer Name&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.u_name}}</h2>
-                    <h2>Compney Of Server &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.company}}</h2>
-                    <h2>SwitchBoard &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{y.switch}} Switches.</h2>
-                    <h2>Grand Total&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.total}}/-Rs.</h2>
-                    
-                    <h2>Date Of Bill&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.tdate|date:'d-m-Y'}}</h2>  
-                    <h2>Accepted By &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp  IT Solution Hub</h2>  
-                    <h2 align="right" style="margin-right: 110px">Sent By</h2>  
-                    <h2 align="right" style="color: red">IT SOLUTION HUB</h2>
-            </div> 
+        <div class="rcorners3">
+                <span style="color:rgb(76, 139, 223);font-size:15px; font-weight: bold;" >Customer Details:</span><br><br>
+                <span><b>Customer Name:</b>&nbsp;&nbsp;&nbsp;<u>{{d.u_name}}</u></span>  <br /> 
+                <span><b>Address:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.address}}</u></span>  <br> 
+                <span><b>Pincode:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.pincode}}</u></span>  
+         </div>
+            <center><h1 style="color:lightseagreen">IT Solution Hub Camara Contract E-Bill</h1></center>
+            <table class="table table-hover">   
+                              
+                    <thead>
+                    <tr style="border-bottom: 1px solid black; padding-top: 3px; color:rgb(76, 139, 223);">                                   
+                        <th>Compney Of Server</th>
+                        <th>SwitchBoard</th>                                                          
+                        <th>Grand Total</th>
+                        <th>Date Of Bill</th>   
+                        <th>Accepted By</th>  
+                                 
+                    </tr>
+                </thead>         
+                <tbody>                                 
+                        <tr class="danger" style="padding: 4px;" >                                       
+                            <td align="center">{{d.company}}</td>
+                            <td align="center">{{y.switch}}</td> 
+                            <td align="center">{{d.total}}/-Rs.</td>
+                            <td>{{d.tdate|date:'d-m-Y'}}</td>   
+                            <td>IT Solution Hub</td>
+                        </tr>  
+                </tbody> 
+            </table>
+            <div align="right" style="margin-top:40px;margin-right:10px;">
+                    <span><b>Sub Total:</b>&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.price}}</u></span>  <br /> 
+                    <span><b>Tax:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>3522</u></span>  <br> 
+                    <span style="color:rgb(76, 139, 223);"><b>Grand Total:</b>&nbsp;&nbsp;&nbsp;<u>{{d.price}}</u></span>  
+            </div>
+       
        {% else %}
-       <div class="Complaint Bill">
-            <center><h1 style="color: red">IT SOLTION HUB</h1>     </center>
-            <center><h1 style="color:lightseagreen">IT Solution Hub Complaint E-Bill</h1></center>
-            <div style="border:2px">                   
-                <h2 align="right">Date&nbsp&nbsp:&nbsp&nbsp{{ date|date:'d-m-Y' }}</h2>
-                <h2>Customer Name&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.u_name}}</h2>
-                <h2>Complaint Description&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{y.c_desc}}</h2>
-                <h2>Solution Description&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.c_desc}}</h2>
-                <h2>Grand Total&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.total}}</h2>
-                <h2>Date Of Bill&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp {{d.tdate|date:'d-m-Y'}}</h2>  
-                <h2>Solved By&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp&nbsp&nbsp&nbsp&nbsp  {{c.e_name}}</h2>  
-                <h2 align="right" style="margin-right: 110px">Sent By</h2>  
-                <h2 align="right" style="color: red">IT SOLUTION HUB</h2>
-        </div>
+       <div class="rcorners3">
+            <span style="color:rgb(76, 139, 223);font-size:15px; font-weight: bold;" >Customer Details:</span><br><br>
+            <span><b>Customer Name:</b>&nbsp;&nbsp;&nbsp;<u>{{d.u_name}}</u></span>  <br /> 
+            <span><b>Address:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.address}}</u></span>  <br> 
+            <span><b>Pincode:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.pincode}}</u></span>  
+     </div>
+        <center><h1 style="color:lightseagreen">IT Solution Hub Camara Contract E-Bill</h1></center>
+        <table class="table table-hover">   
+                          
+                <thead>
+                <tr style="border-bottom: 1px solid black; padding-top: 3px; color:rgb(76, 139, 223);">                                   
+                    <th colspan="2">Complaint Description</th>
+                    <th>Solution Description</th> 
+                    <th>Date Of Bill</th> 
+                    <th>Accepted By</th>                                                    
+                    <th>Grand Total</th>                              
+                </tr>
+            </thead>         
+            <tbody>                                 
+                    <tr class="danger" style="padding: 4px;" >                                       
+                        <td align="center" colspan="2">{{y.c_desc}}</td>
+                        <td align="center">{{d.c_desc}}</td>
+                        <td align="center">{{d.tdate|date:'d-m-Y'}}</td> 
+                        <td align="center">{{c.e_name}}</td>
+                        <td align="center">{{d.total}}/-Rs.</td>
+                    </tr>  
+            </tbody> 
+        </table>
+        <div style="margin:40px 10px 0px 540px;">
+                <span><b>Sub Total:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.total}}</u></span>  <br /> 
+                <span><b>Tax:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>3522</u></span>  <br> 
+                <span style="color:rgb(76, 139, 223);"><b>Grand Total:</b>&nbsp;<u>{{d.total}}</u></span>          
+        </div>     
        {% endif %}
-    </div>
+       <div>
+            <h2 align="right" style="margin-right: 110px; margin-top:80px;">Sent By</h2>  
+            <h2 align="right" style="color: red">IT SOLUTION HUB</h2>
+    </div> 
+       </div>
+   
 </body>
 </html>

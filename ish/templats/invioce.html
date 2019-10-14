@@ -9,144 +9,167 @@
        font-size: 24px;
      }
 
-     table {
-       border: 1px solid;
-       margin: 0 auto;
+     table {  
+       border: 1px solid black;    
+       margin: 5px auto;
        width: 90%;
        text-align: center;
      }
 
       th {
-       font-size: 13px;
-       margin-top: 10px;
-       text-align: center;
-       
-     }
+       font-size: 11pt;
+       margin-top: 2px;    
+     }     
      td{
-        font-size: 11px
+        font-size: 11px;        
      }
+     .header{
+        width: 100%;
+        height: 20%;              
+    }
    </style>
  </head>
  <body>
-   <h1 style="color: red">IT SOLTION HUB</h1>
-   <table>   
-        {% if x == "englist" %}
-                <center><h2 style="color:lightseagreen">IT Solution Hub Engineer List</h2></center>
-                
-                <tr style="margin-top: 300px; color:rgb(76, 139, 223); background-color:rgb(251, 253, 214)">
-                    <th style="margin-top: 300px;">Engineer Name</th>
+        <div class="table-responsive" style="font-size: 15px;">
+              
+                <!------ Header ------->
+                <div class="header">
+                    <div align="center" style="margin-bottom:0px;">
+                       <h1><span style="color:rgb(76, 139, 223); margin-top: 0px;">IT SOLUTION HUB</span></h1>  
+                        </div> 
+                        
+                    <div align="right" style="margin-top: 0px;">
+                        <span style="color:rgb(76, 139, 223);">Date: &nbsp;&nbsp;{{date|date:'d-m-Y'}}</span><br>
+                        <span style="margin-left:150px;margin-top: 0px;">Shop No-2, Rubi Trade Center, <br />Near Gitanjali Petrol Pump,<br />Surat, Gujarat</span>
+                    </div>  
+                </div>             
+            <br>
+   <table class="table table-hover">   
+        {% if x == "englist" %}                
+                <thead>
+                <tr style="border-bottom: 1px solid black; padding-top: 3px; color:rgb(76, 139, 223);">
+                    <th>Engineer Name</th>
                     <th>Mobile Number</th>
                     <th>Engineer Type</th>
                     <th>City</th>
-                    <th>Email</th>
+                    <th colspan="2">Email</th>
                     <th>Feedback</th>            
                 </tr>
-                
+            </thead>
+            <hr>
+            <center><h2 style="color:lightseagreen">IT Solution Hub Engineer List</h2></center>
+            <tbody>
                 {% for i in d %} 
-                    <tr class="info">
+                    <tr class="danger" style="padding: 4px;">
                         <td>{{i.e_name}}</td>
                         <td>{{i.contect}}</td>
                         <td>{{i.e_type}}</td>
                         <td>{{i.city}}</td>
-                        <td>{{i.email}}</td>
+                        <td colspan="2">{{i.email}}</td>
                         <td>{{i.feedback}}&nbsp&nbsp<i class="fas fa-star" aria-hidden="true"></i></td>                
                     </tr>  
                 {% endfor %}       
-        
-        {% elif x == "userlist" %}
-            <center><h2 style="color:lightseagreen">IT Solution Hub Customer List</h2></center>
+            </tbody>
+        {% elif x == "userlist" %}           
             <thead>
-                <tr style="margin-top: 300px; color:rgb(76, 139, 223); background-color:rgb(251, 253, 214)">
+                <tr style="border-bottom: 1px solid black; padding-top: 3px; color:rgb(76, 139, 223);">
                     <th>User Name</th>
                     <th>Mobile Number</th>
                     <th>Address</th>
                     <th>City</th>
                     <th>Pincode</th>
-                    <th>Email</th>            
+                    <th colspan="2">Email</th>            
                 </tr>
             </thead>
+            <hr>
+            <center><h2 style="color:lightseagreen">IT Solution Hub Customer List</h2></center>
             <tbody>
                 {% for i in d %} 
-                    <tr class="info">
+                    <tr class="danger" style="padding: 4px;">
                         <td>{{i.u_name}}</td>
                         <td>{{i.contect}}</td>
                         <td>{{i.area}}</td>
                         <td>{{i.city}}</td>
                         <td>{{i.pincode}}</td>
-                        <td>{{i.email}}</td>                
+                        <td colspan="2">{{i.email}}</td>                
                     </tr>  
                 {% endfor %}
                 </tbody>
-            {% elif x == "itemlist" %}
-                <center><h2 style="color:lightseagreen">IT Solution Hub Product List</h2></center>
+            {% elif x == "itemlist" %}               
                 <thead>
-                <tr style="margin-top: 300px; color:rgb(76, 139, 223); background-color:rgb(251, 253, 214)">
-                    <th>Image</th>
+                <tr style="border-bottom: 1px solid black; padding-top: 3px; color:rgb(76, 139, 223);">
+                   
                     <th>Product Name</th>
-                    <th>Description</th>
+                    <th colspan="2">Description</th>
                     <th>Stock</th>              
-                    <th>Price</th>                            
+                    <th>Price in Rs</th>                            
                     <th>Rating</th> 
                     <th>Date Of Relese</th>                       
                 </tr>
             </thead>
+            <hr>
+            <center><h2 style="color:lightseagreen">IT Solution Hub Product List</h2></center>
             <tbody>
                 {% for i in d %} 
-                    <tr class="info">
-                        <td><img src="/media/{{i.image}}" alt="{{i.prod_name}}" width="200" height="150"></td>
+                    <tr class="danger" style="padding: 4px;">
+                        
                         <td>{{i.p_name}}</td>
-                        <td>{{i.desc}}</td>
+                        <td colspan="2">{{i.desc}}</td>
                         <td>{{i.stock}}</td>                  
                         <td>{{i.price}}</td>                                
-                        <td>{{i.rating}}&nbsp&nbsp<i class="fas fa-star" aria-hidden="true"></i></td>
+                        <td>{{i.rating|floatformat:1}}&nbsp&nbsp<i class="fas fa-star" aria-hidden="true"></i></td>
                     </strong>
                     <td>{{i.idate}}</td>  
                     </tr>  
                 {% endfor %}
             </tbody>
-        {% elif x == "cmplist" %}
-                    <center><h2 style="color:lightseagreen">IT Solution Hub Complaint List</h2></center>
+
+        {% elif x == "cmplist" %}                    
                     <thead>
-                        <tr style="margin-top: 300px; color:rgb(76, 139, 223); background-color:rgb(251, 253, 214)">
+                        <tr style="border-bottom: 1px solid black; padding-top:3px; color:rgb(76, 139, 223);">
                             <th>User Name</th>
                             <th>Complaint type</th>
-                            <th>Email of Engineer</th>
+                            <th colspan="2">Email of Engineer</th>
                             <th>Description</th>
-                            <th>Image</th>            
+                                      
                         </tr>
                     </thead>
+                    <hr>
+                    <center><h2 style="color:lightseagreen">IT Solution Hub Complaint List</h2></center>
                     <tbody>
                         {% for i in d %} 
-                            <tr class="info">
+                            <tr class="info" style="padding-top:4px;">
                                 <td>{{i.u_name}}</td>
                                 <td>{{i.c_type}}</td>
-                                <td>{{i.e_email}}</td>
+                                <td colspan="2">{{i.e_email}}</td>
                                 <td>{{i.c_desc}}</td>
-                                <td>{{i.image}}</td>                
+                                                
                             </tr>  
                         {% endfor %}
                     </tbody>
-            {% elif x == "tralist" %}
-                    <center><h2 style="color:lightseagreen">IT Solution Hub Transaction List</h2></center>
+
+            {% elif x == "tralist" %}                   
                     <thead>
-                        <tr style="margin-top: 300px; color:rgb(76, 139, 223); background-color:rgb(251, 253, 214)">
+                        <tr style="border-bottom: 1px solid black; padding-top:3px; color:rgb(76, 139, 223);">
                             <th>User Name</th>
                             <th>Description</th>
                             <th>Bill Status</th>
                             <th>Total Price</th>                                   
                         </tr>
                     </thead>
+                    <hr>
+                    <center><h2 style="color:lightseagreen">IT Solution Hub Transaction List</h2></center>
                     <tbody>
                         {% for i in d %} 
                             {% if i.status == 0 %} 
-                                <tr class="info">
+                                <tr class="danger" style="padding-top: 5px;">
                                     <td>{{i.u_name}}</td>
                                     <td>{{i.c_desc}}</td>
                                     <td>Panding</td>
                                     <td>{{i.total}}</td>               
                                 </tr> 
                             {% elif i.status == 1 %} 
-                                <tr class="info">
+                                <tr class="danger" style="padding-top: 5px;">
                                     <td>{{i.u_name}}</td>
                                     <td>{{i.c_desc}}</td>
                                     <td>Paid</td>
@@ -155,46 +178,50 @@
                             {% endif %}
                         {% endfor %} 
                     </tbody> 
-            {% elif x == "ordlist" %} 
-                <center><h2 style="color:lightseagreen">IT Solution Hub Selling List</h2></center>
+
+            {% elif x == "ordlist" %}                 
                 <thead>
-                <tr style="margin-top: 300px; color:rgb(76, 139, 223); background-color:rgb(251, 253, 214)">
+                <tr style="border-bottom: 1px solid black;padding-top: 3px; color:rgb(76, 139, 223);">
                         <th>User Name</th>
                         <th>Products Name</th>
-                        <th>Email </th>
-                        <th>Price</th>
+                        <th colspan="3">Email </th>
+                        <th>Price in Rs</th>
                         <th>Payment</th>   
-                        <th>Address</th>   
+                        <th colspan="2">Address</th>   
                         <th>Pincode</th>
                         <th>Date Of Order</th>            
                     </tr>
                 </thead>
+                <hr>
+                <center><h2 style="color:lightseagreen">IT Solution Hub Selling List</h2></center>
                 <tbody>
                     {% for i in d %}          
-                          <tr class="info" >
+                          <tr class="danger" style="padding:4px;">
                             <td>{{i.u_name}}</td>
                             <td>{{i.p_name}}</td>
-                            <td>{{i.email}}</td>
+                            <td colspan="3">{{i.email}}</td>
                             <td>{{i.price}}</td>
                             <td>{{i.pay}}</td>
-                            <td>{{i.address}}<br />{{i.landmark}}</td>
+                            <td colspan="2">{{i.address}}<br />{{i.landmark}}</td>
                             <td>{{i.pincode}}</td>
                             <td>{{i.odate}}</td>
                           </tr>      
                     {% endfor %}
                 </tbody>
-            {% else %}
-                <center><h2 style="color:lightseagreen">IT Solution Hub Complaint Bill</h2></center>
+
+            {% else %}               
                 <thead>
-                    <tr style="margin-top: 300px; color:rgb(76, 139, 223); background-color:rgb(251, 253, 214)">
+                    <tr style="border-bottom: 1px solid black;padding-top: 3px; color:rgb(76, 139, 223);">
                         <th>User Name</th>
                         <th>Description</th>
                         <th>Grand Total</th>
                         <th>Date Of Bill</th>                                   
                     </tr>
                 </thead>
+                <hr>
+                <center><h2 style="color:lightseagreen">IT Solution Hub Complaint Bill</h2></center>
                 <tbody>              
-                        <tr class="info">
+                        <tr class="danger" style="padding-top: 5px;">
                             <td>{{d.u_name}}</td>
                             <td>{{d.c_desc}}</td>
                             <td>{{d.total}} Rs /- Only</td>
@@ -203,5 +230,10 @@
                 </tbody> 
             {% endif %}
    </table>
+   <!-- Signature -->
+   <div align="right" style="margin-right:50px; margin-top:70px;">
+        <span style="color:rgb(76, 139, 223);" ><b>Signature:</b></span><br><br>
+        <span>____________________</span>
+    </div>
  </body>
 </html>

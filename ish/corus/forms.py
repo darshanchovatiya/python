@@ -17,6 +17,7 @@ class productu(forms.ModelForm):
                 'image':'Image Of Product'
             }
 class editprofile(forms.ModelForm):
+    
     class Meta:
         model=Uregiser
         fields=['u_name','city','area','contect','pincode','password']
@@ -28,6 +29,7 @@ class editprofile(forms.ModelForm):
                 'pincode':'Pincode',
                 'password':'Password',
             }
+         
 
 class engprofile(forms.ModelForm):
     class Meta:

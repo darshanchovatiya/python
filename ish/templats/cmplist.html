@@ -3,7 +3,7 @@
 {% render_table table %}
 {% block body %}
 {% load static %}
-<div class="message"style="margin-top: 160px">
+<div class="message"style="margin-top: 120px">
   {% if messages %}
     {% for  message in messages %}
         <div class="alert alert-{{message.tags}}">
@@ -13,7 +13,7 @@
   {% endif %}</div>
 <!--<div class="table mt-6" style="margin-top: 160px" >{% render_table istekler %}</div>-->
 <div class="table-responsive" >
-  
+  <center><h3>Complaint List for engineer</h3></center>
   <table class="table table-hover">
     <tr>
         <th>Image Of Problem</th>
@@ -27,7 +27,7 @@
     {% for i in istekler %}      
       {% if i.status == 0 %}        
           <tr class="danger">
-            <td><img src="/media/{{i.image}}" alt="{{i.u_name}}" width="300" height="250"></td>
+            <td><img src="/media/{{i.image}}" alt="{{i.u_name}}" width="200" height="150"></td>
             <td>{{i.u_name}}</td>
             <td>{{i.c_type}}</td>
             <td>{{i.c_desc}}</td>
