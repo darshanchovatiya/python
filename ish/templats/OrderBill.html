@@ -41,15 +41,17 @@
                     </div>                      
                     <div align="right">
                             <span style="color:lightseagreen">Date: &nbsp;&nbsp;{{ date|date:'d-m-Y' }}</span><br>
-                            <span style="color:lightseagreen">Receipt No: &nbsp;&nbsp;{{ date|date:'d-m-Y' }}</span><br>
+                            <span style="color:lightseagreen">Receipt No: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;{{ d.unumber }}</span><br>
                     </div>                   
                 </div>              
                 <br>
 <div class="rcorners3">
-        <span style="color:rgb(76, 139, 223);font-size:15px; font-weight: bold;" >Customer Details:</span><br><br>
-        <span><b>Customer Name:</b>&nbsp;&nbsp;&nbsp;<u>{{d.u_name}}</u></span>  <br /> 
-        <span><b>Address:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.address}}</u></span>  <br> 
-        <span><b>Pincode:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.pincode}}</u></span>  
+        <span style="color:rgb(76, 139, 223);font-size:15px; font-weight: bold;" >Bill Details:</span><br><br>
+        <span><b>Customer Name:</b>&nbsp;&nbsp;<u>{{d.u_name}}</u></span>  <br /> 
+        <span><b>Address:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.address}}</u></span>  <br> 
+        <span><b>Pincode:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.pincode}}</u></span>  <br>
+        <span><b>Date of Order : </b>&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.odate|date:'d-m-Y'}}</u></span>  <br>
+        <span><b>Payment Method : </b>&nbsp;<u>{{d.pay}}</u></span>  
 
 </div>
 <center><h2 style="color:lightseagreen">IT Solution Hub Product Selling E-Bill</h2></center> 
@@ -57,20 +59,26 @@
                               
                                 <thead>
                                 <tr style="border-bottom: 1px solid black; padding-top: 3px; color:rgb(76, 139, 223);">                                   
-                                    <th>Products Name</th>
-                                    <th>Date Of Order</th>
-                                    <th>Payment Method</th>                                    
+                                    <th>Products Name</th>                                    
+                                    
+                                    <th>Quantity</th>                                   
                                     <th>Price in Rs</th>      
                                              
                                 </tr>
                             </thead>         
-                            <tbody>                                 
+                            <tbody>   
+                                {% for i in xy %}   
+                                {% for j in pr %}
+                                    {% if i.p_id == j.p_id %}
                                     <tr class="danger" style="padding: 4px;" >                                       
-                                        <td align="center">{{d.p_name}}</td>
-                                        <td align="center">{{d.odate|date:'d-m-Y'}}</td>                                       
-                                        <td align="center">{{d.pay}}</td>
-                                        <td align="center">{{d.price}}</td>   
+                                        <td align="center">{{i.p_name}}</td>                                                                              
+                                        
+                                        <td align="center">{{i.quantity}}</td>
+                                        <td align="center">{{j.price}}</td>   
                                     </tr>  
+                                    {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
                             </tbody> 
                         </table>
                         <div align="right" style="margin:40px 10px 0px 540px;">

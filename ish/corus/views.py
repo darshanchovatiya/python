@@ -173,7 +173,11 @@ def checkout(request,id):
     email = udata.email
     address = udata.area
     request.session["cnm"] = u_name
-    request.session["ceml"] = email   
+    request.session["ceml"] = email  
+    ds = order.objects.all() 
+    
+    for x in ds:
+       request.session["inc"] = int(x.unumber) + 1
     pdata=cart.objects.filter(u_id =id)    
     name = ''      
     if request.method == 'POST':
@@ -190,7 +194,9 @@ def checkout(request,id):
                 checkout.u_name=u_name
                 checkout.email=email
                 checkout.pay = popt
+                checkout.quantity = i.quantity
                 checkout.price=request.session["gtotal"] 
+                checkout.unumber = request.session["inc"]
                 checkout.save() 
                 dst=item.objects.get(p_id =i.p_id)  
                 request.session['rat'] =  dst.p_id
@@ -201,6 +207,7 @@ def checkout(request,id):
             del request.session["gtotal"]
             request.session['sa'] = 1
             request.session["noty"] = 0
+            
             messages.success(request,'Your Order Placed!')
             return render(request,'checkout.html')
         return render(request,'checkout.html',{'form':form})
@@ -813,43 +820,50 @@ def GeneratePDF(request,id,*args, **kwargs):
             d = eregiser.objects.all() 
             context = {
                 'd':d,
-                'x':x,                
+                'x':x,
+                'date':datetime.now()                
             }
         elif id == 2:
             request.session["pf"]="userlist"
             x = request.session["pf"]
             d = Uregiser.objects.all() 
+            
             context = {
                 'd':d,
-                'x':x
+                'x':x,
+                'date':datetime.now()
             }  
         elif id == 3:           
             x =  "itemlist"
             d = item.objects.all() 
             context = {
                 'd':d,
-                'x':x
+                'x':x,
+                'date':datetime.now()
             } 
         elif id == 4:
             x ="cmplist"             
             d = complain.objects.all() 
             context = {
                 'd':d,
-                'x':x
+                'x':x,
+                'date':datetime.now()
             } 
         elif id == 5:            
             x =  "tralist"
             d = transection.objects.all() 
             context = {
                 'd':d,
-                'x':x
+                'x':x,
+                'date':datetime.now()
             } 
         elif id == 6:           
             x =  "ordlist"
             d = order.objects.all() 
             context = {
                 'd':d,
-                'x':x
+                'x':x,
+                'date':datetime.now()
             }  
         
         template = get_template('invioce.html')      
@@ -868,6 +882,7 @@ def GeneratePDF(request,id,*args, **kwargs):
 
 #View For Complaint Bill
 def BillPrint(request,id,*args, **kwargs): 
+        cus = Uregiser.objects.get(u_id = request.session["nm"])
         d = transection.objects.get(b_id = id)
         x = d.c_id
         y= 0
@@ -886,7 +901,8 @@ def BillPrint(request,id,*args, **kwargs):
                     'd':d, 
                     'y':y,               
                     'c':c, 
-                    'x':x,                   
+                    'x':x,  
+                    'cus':cus,                 
                     'date':datetime.now()
         }
         template = get_template('BillPrint.html')      
@@ -906,8 +922,12 @@ def BillPrint(request,id,*args, **kwargs):
 #VIew For Product BillS
 def OrderBill(request,id,*args, **kwargs): 
         d = order.objects.get(o_id = id)
+        xy = order.objects.filter(unumber = d.unumber)
+        pr = item.objects.all()        
         context = {
-                    'd':d,                                   
+                    'd':d,   
+                    'xy':xy, 
+                    'pr':pr,                               
                     'date':datetime.now()
         }       
         template = get_template('OrderBill.html')      

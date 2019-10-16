@@ -160,12 +160,12 @@
                                           </form>  
                                 </td>
                                 <td>{{i.price}}</td>                                
-                                <td>{{i.rating}}&nbsp&nbsp<i class="fas fa-star" aria-hidden="true"></i></td>
+                                <td>{{i.rating|floatformat:1}}&nbsp&nbsp<i class="fas fa-star" aria-hidden="true"></i></td>
                                 
                             </strong>
                             <td>{{i.idate}}</td> 
-                            <td><a href="edit_prod{{i.p_id}}"><i class='fas fa-edit' style='font-size:48px;color:red'></i></a></td> 
-                            <td><a href="aplist{{i.p_id}}"><i class="fa fa-trash-o" style="font-size:48px;color:red"></i></a></td> 
+                            <td><a href="edit_prod{{i.p_id}}"><i class='fas fa-edit' style='font-size:24px; color:green'></i></a></td> 
+                            <td><a href="aplist{{i.p_id}}"><i class="fa fa-trash-o" style="font-size:24px;color:red"></i></a></td> 
                             </tr>  
                         {% endfor %}
                     </tbody>

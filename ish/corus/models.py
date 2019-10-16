@@ -13,13 +13,13 @@ pc = [('LG','LG'),('HP','HP'),('DELL','DELL'),('LENOVO','LENOVO'),('ACER','ACER'
 class item(models.Model):
     p_id=models.AutoField(primary_key=True)
     p_name=models.CharField(max_length=50)
-    price=models.IntegerField(default=0)
+    price=models.IntegerField(default="")
     company = models.CharField(max_length=30,choices=pc)
-    stock=models.IntegerField(default=0)
+    stock=models.IntegerField(default="")
     rating=models.FloatField(default=0)
     crating=models.IntegerField(default=0)
     desc=models.CharField(max_length=300)
-    warranty = models.IntegerField(default=0)    
+    warranty = models.IntegerField(default="")    
     image=models.ImageField(upload_to="image",default="")
     idate = models.DateField(default=datetime.now())
     def __str__(self):
@@ -140,12 +140,13 @@ class order(models.Model):
     u_name = models.CharField(max_length=30)
     email = models.CharField(max_length=30)
     price = models.IntegerField(default=0)
+    quantity = models.IntegerField(default=0)
     pay = models.CharField(max_length=128)
     address = models.CharField(max_length=300,default='')
     landmark = models.CharField(max_length=300,default='')
     pincode = models.IntegerField(default=0)
     odate = models.DateField(default=datetime.now())
-
+    unumber = models.IntegerField(default=0)
     def __str__(self):
         return self.u_name
 

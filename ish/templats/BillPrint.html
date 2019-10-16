@@ -47,10 +47,9 @@
         {% if x == 1 %}  
         <div class="rcorners3">
                 <span style="color:rgb(76, 139, 223);font-size:15px; font-weight: bold;" >Customer Details:</span><br><br>
-                <span><b>Customer Name:</b>&nbsp;&nbsp;&nbsp;<u>{{d.u_name}}</u></span>  <br /> 
-                <span><b>Address:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.address}}</u></span>  <br> 
-                <span><b>Pincode:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.pincode}}</u></span>  
-         </div>
+                <span><b>Name &nbsp;&nbsp;&nbsp; :</b>&nbsp;<u>{{cus.u_name}}</u></span>  <br /> 
+            <span><b>Contact :</b>&nbsp;<u>{{cus.contect}}</u></span>  
+        </div>
             <center><h1 style="color:lightseagreen">IT Solution Hub Camara Contract E-Bill</h1></center>
             <table class="table table-hover">   
                               
@@ -77,9 +76,9 @@
                 </tbody> 
             </table>
             <div align="right" style="margin-top:40px;margin-right:10px;">
-                    <span><b>Sub Total:</b>&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.price}}</u></span>  <br /> 
+                    <span><b>Sub Total:</b>&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.total}}</u></span>  <br /> 
                     <span><b>Tax:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>3522</u></span>  <br> 
-                    <span style="color:rgb(76, 139, 223);"><b>Grand Total:</b>&nbsp;&nbsp;&nbsp;<u>{{d.price}}</u></span>  
+                    <span style="color:rgb(76, 139, 223);"><b>Grand Total:</b>&nbsp;&nbsp;&nbsp;<u>{{d.total}}</u></span>  
             
             </div>
          
@@ -87,11 +86,10 @@
         {% elif x == 2 %} 
         <div class="rcorners3">
                 <span style="color:rgb(76, 139, 223);font-size:15px; font-weight: bold;" >Customer Details:</span><br><br>
-                <span><b>Customer Name:</b>&nbsp;&nbsp;&nbsp;<u>{{d.u_name}}</u></span>  <br /> 
-                <span><b>Address:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.address}}</u></span>  <br> 
-                <span><b>Pincode:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.pincode}}</u></span>  
-         </div>
-            <center><h1 style="color:lightseagreen">IT Solution Hub Camara Contract E-Bill</h1></center>
+                <span><b>Name &nbsp;&nbsp;&nbsp; :</b>&nbsp;<u>{{cus.u_name}}</u></span>  <br /> 
+            <span><b>Contact :</b>&nbsp;<u>{{cus.contect}}</u></span>  
+        </div>
+            <center><h1 style="color:lightseagreen">IT Solution Hub Server Contract E-Bill</h1></center>
             <table class="table table-hover">   
                               
                     <thead>
@@ -115,17 +113,16 @@
                 </tbody> 
             </table>
             <div align="right" style="margin-top:40px;margin-right:10px;">
-                    <span><b>Sub Total:</b>&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.price}}</u></span>  <br /> 
+                    <span><b>Sub Total:</b>&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.total}}</u></span>  <br /> 
                     <span><b>Tax:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>3522</u></span>  <br> 
-                    <span style="color:rgb(76, 139, 223);"><b>Grand Total:</b>&nbsp;&nbsp;&nbsp;<u>{{d.price}}</u></span>  
+                    <span style="color:rgb(76, 139, 223);"><b>Grand Total:</b>&nbsp;&nbsp;&nbsp;<u>{{d.total}}</u></span>  
             </div>
        
        {% else %}
        <div class="rcorners3">
             <span style="color:rgb(76, 139, 223);font-size:15px; font-weight: bold;" >Customer Details:</span><br><br>
-            <span><b>Customer Name:</b>&nbsp;&nbsp;&nbsp;<u>{{d.u_name}}</u></span>  <br /> 
-            <span><b>Address:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.address}}</u></span>  <br> 
-            <span><b>Pincode:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<u>{{d.pincode}}</u></span>  
+            <span><b>Name &nbsp;&nbsp;&nbsp; :</b>&nbsp;<u>{{cus.u_name}}</u></span>  <br /> 
+            <span><b>Contact :</b>&nbsp;<u>{{cus.contect}}</u></span>  
      </div>
         <center><h1 style="color:lightseagreen">IT Solution Hub Camara Contract E-Bill</h1></center>
         <table class="table table-hover">   

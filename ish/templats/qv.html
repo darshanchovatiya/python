@@ -73,11 +73,11 @@
                 <div >
                     <h3>Rating</h3>
                     <p>{% if i.rating >= 4.5  %}
-                        <p style="color: red">{{i.rating}}<i class="fas fa-star" aria-hidden="true"></i></p> 
+                        <p style="color: red">{{i.rating|floatformat:1}}<i class="fas fa-star" aria-hidden="true"></i></p> 
                       {% elif i.rating < 4.5 and i.rating >= 3 %}
-                        <p style="color: rgb(247, 114, 6)">{{i.rating}}<i class="fas fa-star" aria-hidden="true"></i></p> 
+                        <p style="color: rgb(247, 114, 6)">{{i.rating|floatformat:1}}<i class="fas fa-star" aria-hidden="true"></i></p> 
                       {% elif i.rating < 3 %}
-                        <p style="color: rgb(121, 118, 118)">{{i.rating}}<i class="fas fa-star" aria-hidden="true"></i></p> 
+                        <p style="color: rgb(121, 118, 118)">{{i.rating|floatformat:1}}<i class="fas fa-star" aria-hidden="true"></i></p> 
                       {% endif %} </p> 
                   </div>
             </div>
