@@ -20,12 +20,11 @@ class editprofile(forms.ModelForm):
     
     class Meta:
         model=Uregiser
-        fields=['u_name','city','area','contect','pincode','password']
+        fields=['u_name','city','area','pincode','password']
         labels  = {
                 'u_name':'User Name', 
                 'city':'City', 
-                'area':'Address', 
-                'contect':'Contect', 
+                'area':'Address',                 
                 'pincode':'Pincode',
                 'password':'Password',
             }

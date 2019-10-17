@@ -3,14 +3,52 @@
 {% load crispy_forms_tags %}
 {% block body %}
 <body style="margin-top: 160px">
-        
+    <script>  
+        function validate () {
+            var A = document.getElementById("id_u_name").value;
+            var b = document.getElementById("id_city").value;
+            var c = document.getElementById("id_pincode").value;
+           
+            if(!(/^[a-z]+$/i.test(A)))
+            {
+               alert ("enter Number only");
+               return false;
+            }
+            if(!(/^[a-z]+$/i.test(b)))
+            {
+               alert ("enter letters only");
+               return false;
+            }
+            if(!(/^[0-9]+$/i.test(c)))
+            {
+               alert ("enter letters only");
+               return false;
+            }
+            
+         }
+    </script>  
+    <script>
+            var userName = document.querySelector('#id_pincode');            
+            userName.addEventListener('input', restrictNumber);
+            function restrictNumber (e) {  
+            var newValue = this.value.replace(new RegExp(/[^\d]/,'ig'), "");
+            this.value = newValue;
+            }
+            var mob = document.querySelector('#id_contect');            
+            mob.addEventListener('input', restrictNumber);
+            function restrictNumber (e) {  
+            var newValue = this.value.replace(new RegExp(/[^\d]/,'ig'), "");
+            this.value = newValue;
+            }
+    </script>
+
         <div class="row" >
             <div class="col-md-6 col-sm-12 col-lg-6 col-md-offset-3">
                 <div class="panel panel-success">
                     <div class="panel-heading"><center><b><h2>Lets Edit Your Profile</h2></b></center>
                     </div>
                     <div class="panel-body">
-                        <form method="POST" enctype="multipart/form-data">
+                        <form method="POST" name="form" onsubmit="return validate();" enctype="multipart/form-data">
                             {% csrf_token %}
                                                                         
                             {% if messages %}
@@ -21,11 +59,11 @@
                                 {% endfor %}
                             {% endif %}
                             <fieldset class="form-group">
-                                                            
-                                    {{form|crispy}}
+                                
+                                   {{form|crispy}}
                             </fieldset>
                             <div class="form-group">
-                                <center><button type="submit" id="submit" class="btn btn-warning" >
+                                <center><button type="submit"  id="submit" class="btn btn-warning" >
                                     SUBMIT &nbsp&nbsp&nbsp<span class="glyphicon glyphicon-send"></span></button>
                                     &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  <button type="reset" id="reset" class="btn btn-warning" >
                                     Cancel &nbsp&nbsp&nbsp<span class="glyphicon glyphicon-remove"></span></button>    
