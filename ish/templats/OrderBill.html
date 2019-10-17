@@ -59,7 +59,7 @@
                               
                                 <thead>
                                 <tr style="border-bottom: 1px solid black; padding-top: 3px; color:rgb(76, 139, 223);">                                   
-                                    <th>Products Name</th>                                    
+                                    <th colspan="2">Products Name</th>                                    
                                     
                                     <th>Quantity</th>                                   
                                     <th>Price in Rs</th>      
@@ -71,7 +71,7 @@
                                 {% for j in pr %}
                                     {% if i.p_id == j.p_id %}
                                     <tr class="danger" style="padding: 4px;" >                                       
-                                        <td align="center">{{i.p_name}}</td>                                                                              
+                                        <td align="center" colspan="2">{{i.p_name}}</td>                                                                              
                                         
                                         <td align="center">{{i.quantity}}</td>
                                         <td align="center">{{j.price}}</td>   

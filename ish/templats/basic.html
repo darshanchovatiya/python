@@ -160,21 +160,10 @@
         
         <ul class="nav navbar-nav navbar-left"><li style="margin-left:20px; color:aliceblue;font-size:24px">{{request.session.lgne}}{{request.session.lgna}} {{request.session.lgnu}}</li></ul>
           <ul class="nav navbar-nav navbar-right">
-              <li style="margin-left:20px;"><a href="index.html">HOME</a></li>
-            {% if request.session.lgna == null and request.session.lgne == null and request.session.lgnu == null %}            
-              <li style="margin-left:20px;"><a href="product">PRODUCT</a></li>
-              <li style="margin-left:20px;"><a href="location">CONTACT</a></li>
-              <li style="margin-left:20px;"><a href="login">LOGIN</a></li>
-              <li style="margin-left:20px;" class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">REGISTER
-                  <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="rege">ENGINEER</a></li>
-                    <li><a href="regu">USER</a></li>
-                  </ul>
-              </li>
-              
-            {% elif request.session.lgna != null %}         
+              <li style="margin-left:20px;"><a href="index.html">HOME</a></li>              
+                     
+                      
+            {% if request.session.lgna != null %}         
               <li style="margin-left:20px;"><a href="aplist{{1}}.html">Lists</a></li>
               <li style="margin-left:20px;" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -220,8 +209,7 @@
               </li>
             {% elif request.session.lgnu != null %}    
               <li style="margin-left:20px;"><a href="product">Product</a></li>              
-              <li style="margin-left:20px;"><a href="cbill">Bills</a></li> 
-                
+              <li style="margin-left:20px;"><a href="cbill">Bills</a></li>                 
               <li style="margin-left:20px;"><a href="cs">Server</a></li>             
               <li style="margin-left:20px;" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -239,12 +227,23 @@
                     <i class="fas fa-cog"></i>
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li style="margin-left:20px;"><a href="histry">History</a></li>
+                  <li style="margin-left:20px;"><a href="histry.html">History</a></li>
                   <li style="margin-left:20px;"><a href="edit_profile">EditProfile</a></li>
                   <li style="margin-left:20px;"><a href="logout">Logout</a></li>
                 </ul>
               </li>
-            {% else %}              
+              {% elif request.session.lgna == null and request.session.lgne == null and request.session.lgnu == null %}  
+              <li style="margin-left:20px;"><a href="product">Product</a></li>           
+              <li style="margin-left:20px;"><a href="location">CONTACT</a></li>
+              <li style="margin-left:20px;"><a href="login">LOGIN</a></li>
+              <li style="margin-left:20px;" class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">REGISTER
+                  <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="rege">ENGINEER</a></li>
+                    <li><a href="regu">USER</a></li>
+                  </ul>
+              </li>                
               
             {% endif %}
             

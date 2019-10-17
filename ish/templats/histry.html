@@ -11,7 +11,7 @@
         </div>
     {% endfor %}
     {% endif %}     
-    {{request.session.lrat}}
+   
   <table class="table table-hover">
     <tr>
         <th>User Name</th>
@@ -25,7 +25,7 @@
         <th>Bill</th>
         <th>Rating</th>          
     </tr>
-    {% for i in olist %}          
+    {% for i in istekler %}          
           <tr class="success" >
             <td>{{i.u_name}}</td>
             <td>{{i.p_name}}</td>
@@ -36,8 +36,12 @@
             <td>{{i.pincode}}</td>
             <td>{{i.odate|date:'d-m-Y'}}</td>
             <td><a href="OrderBill{{i.o_id}}" target="_blank"><button type="submit" value="{{i.b_id}}" id="submit" class="btn btn-success" >Print</button></a></td>
-            <td><a href="rating{{i.p_id}}"><button type="submit" value="{{i.p_id}}" id="submit" class="btn btn-success" >Rate</button></a></td>
-         
+           {% if i.status == 0 %}
+           <td><a href="rating{{i.o_id}}" ><button type="submit" value="{{i.b_id}}" id="submit" class="btn btn-success" >Rating</button></a></td>
+           
+            {% else %}
+            <td>Thanks</td>
+            {% endif %}
           </tr>      
     {% endfor %}
   </table>

@@ -55,8 +55,7 @@
         <img src="/media/{{i.image}}" alt="{{i.prod_name}}" width="300" height="150">
         <p><strong>{{i.company}}</strong></p>
         <p><b>Megapixel:{{i.Megapixel}}</b></p>
-        <p><b>Price:Rs {{i.cprice}}/-</b></p>
-        <p><b>vision:{{i.vision}}</b></p>
+        <p><b>Price:Rs {{i.cprice}}/-</b></p>       
         {% if request.session.nm != null %}          
           <a href="qvc{{i.m_id}}"><button class="btn cart" id="{{i.m_id}}" data-toggle="modal" data-target="#myModal">Quick view</button></a>
         {% else %}

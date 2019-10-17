@@ -175,8 +175,8 @@ def checkout(request,id):
     request.session["cnm"] = u_name
     request.session["ceml"] = email  
     ds = order.objects.all() 
-    
-    for x in ds:
+    request.session["inc"] = 0   
+    for x in ds:       
        request.session["inc"] = int(x.unumber) + 1
     pdata=cart.objects.filter(u_id =id)    
     name = ''      
@@ -225,9 +225,9 @@ def contect(request):
 # View For Product Rating
 def rating(request,id):
     if request.method == 'POST':
-        pid = request.POST.get('pid','')
+        ds = order.objects.get(o_id = id)
         rat = request.POST.get('stars','')
-        dr=item.objects.get(p_id = id)
+        dr=item.objects.get(p_id = ds.p_id)
         rate = dr.rating 
         if rate != 0:             
             crat = dr.crating + 1
@@ -237,9 +237,9 @@ def rating(request,id):
             crat = 1 
             lrate = rat 
         item.objects.filter(p_id = id).update(rating=lrate,crating = crat )
+        order.objects.filter(o_id = id).update(status = 1 )
         messages.success(request,'Thanks For Ratting!')
-        messages.success(request,'Thanks For Ratting!')
-        return redirect('product.html')
+        return redirect('histry.html')
     return render(request,'rating.html')
 
 # View For Payment
@@ -634,15 +634,21 @@ def cstatus(request):
         cid = request.POST.get('cid','')
         dr=complain.objects.get(c_id = cid)
         eid = dr.e_id
-        ds=eregiser.objects.get(e_id = eid)        
-        rate = ds.feedback        
-        frat = float(rat) + float(rate)
-        lrate = frat/2
-        request.session['lrat']=lrate
-        eregiser.objects.filter(e_id = eid).update(feedback=lrate)
-        complain.objects.filter(c_id = cid).update(rstatus=1)
-        messages.success(request,'Thanks For Ratting!')
-        return redirect('cstatus.html')    
+        ds=eregiser.objects.get(e_id = eid) 
+        if ds.feedback == 0:
+            eregiser.objects.filter(e_id = eid).update(feedback=rat)
+            complain.objects.filter(c_id = cid).update(rstatus=1)
+            messages.success(request,'Thanks For Ratting!')
+            return redirect('cstatus.html')  
+        else:       
+            rate = ds.feedback        
+            frat = float(rat) + float(rate)
+            lrate = frat/2
+            request.session['lrat']=lrate
+            eregiser.objects.filter(e_id = eid).update(feedback=lrate)
+            complain.objects.filter(c_id = cid).update(rstatus=1)
+            messages.success(request,'Thanks For Ratting!')
+            return redirect('cstatus.html')    
     return render(request,'cstatus.html',locals())
 
 #View For Complaint List For Engineer
@@ -945,21 +951,11 @@ def OrderBill(request,id,*args, **kwargs):
         return HttpResponse("Not found")
 
 # VIew FOr History For Customer
-def histry(request):
-    olist = order.objects.filter(u_id=request.session["nm"]) 
-    if request.method == 'POST':
-        pid = request.POST.get('pid','')
-        rat = request.POST.get('stars','')
-        dr=item.objects.get(p_id = pid)
-        rate = dr.rating              
-        crat = dr.crating + 1
-        frat = float(rat) + float(rate)
-        lrate = frat/2        
-        request.session['lrat']=lrate
-        item.objects.filter(p_id = pid).update(rating=lrate,crating = crat )
-        messages.success(request,'Thanks For Ratting!')
-        return redirect('product.html')
-    return render(request, 'histry.html',locals()) 
+def histry(request):    
+    istekler = order.objects.filter(u_id = request.session["nm"])
+    return render(request,'histry.html',locals())
+
+
 
 #View For Server Order
 def serv(request):

@@ -146,6 +146,7 @@ class order(models.Model):
     landmark = models.CharField(max_length=300,default='')
     pincode = models.IntegerField(default=0)
     odate = models.DateField(default=datetime.now())
+    status = models.IntegerField(default=0)
     unumber = models.IntegerField(default=0)
     def __str__(self):
         return self.u_name
