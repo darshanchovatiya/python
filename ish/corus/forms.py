@@ -160,3 +160,5 @@ class AddProductForm(forms.ModelForm):
     class Meta:
         model = Uregiser
         fields = '__all__'
+
+   
