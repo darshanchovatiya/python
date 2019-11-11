@@ -760,6 +760,8 @@ def cbill(request):
 def aplist(request,id):
     fdate = request.POST.get('fdate','')
     ldate = request.POST.get('ldate','')
+    request.session["fdate"]=fdate
+    request.session["ldate"]=ldate
     if id == 1:
         request.session["lstad"]="englist" 
         istekler = eregiser.objects.all()           
@@ -809,10 +811,10 @@ def aplist(request,id):
                 return render(request, 'aplist.html',locals())           
         elif id == 4:
             request.session["lstad"]="cmplist"
-            clist = complain.objects.all(cdate__range=(fdate,ldate))        
+            clist = complain.objects.filter(cdate__range=(fdate,ldate))        
         elif id == 5:
             request.session["lstad"]="tralist"
-            tlist = transection.objects.all(tdate__range=(fdate,ldate))   
+            tlist = transection.objects.filter(tdate__range=(fdate,ldate))   
         elif id == 6:
             request.session["lstad"]="ordlist"
             olist = order.objects.filter(odate__range=(fdate,ldate))   
@@ -839,22 +841,48 @@ def GeneratePDF(request,id,*args, **kwargs):
                 'x':x,
                 'date':datetime.now()
             }  
-        elif id == 3:           
-            x =  "itemlist"
-            d = item.objects.all() 
-            context = {
-                'd':d,
-                'x':x,
-                'date':datetime.now()
-            } 
+        elif id == 3:   
+            if request.session["fdate"] == '' and request.session["ldate"] == '': 
+                f=request.session["fdate"]  
+                l=request.session["ldate"] 
+                x = "itemlist"
+                d = item.objects.all()                
+                context = {
+                    'd':d,
+                    'x':x,                    
+                    'date':datetime.now()          
+                } 
+            else :
+                f=request.session["fdate"]  
+                l=request.session["ldate"] 
+                x = "itemlist1"
+                b = item.objects.filter(idate__range=(f,l))           
+                context = {
+                    'b':b,
+                    'x':x,                   
+                    'date':datetime.now()
+                } 
         elif id == 4:
-            x ="cmplist"             
-            d = complain.objects.all() 
-            context = {
-                'd':d,
-                'x':x,
-                'date':datetime.now()
+            if request.session["fdate"] == '' and request.session["ldate"] == '': 
+                f=request.session["fdate"]  
+                l=request.session["ldate"] 
+                x ="cmplist"             
+                d = complain.objects.all() 
+                context = {
+                    'd':d,
+                    'x':x,
+                    'date':datetime.now()
             } 
+            else :
+                f=request.session["fdate"]  
+                l=request.session["ldate"] 
+                x = "cmplist1"
+                b = complain.objects.filter(cdate__range=(f,l))           
+                context = {
+                    'b':b,
+                    'x':x,                   
+                    'date':datetime.now()
+                } 
         elif id == 5:            
             x =  "tralist"
             d = transection.objects.all() 
