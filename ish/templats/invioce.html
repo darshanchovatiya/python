@@ -125,36 +125,7 @@
                     </tr>  
                 {% endfor %}
             </tbody>
-            <!-------------->
-            {% elif x == "itemlist1" %}               
-            <thead>
-            <tr style="border-bottom: 1px solid black; padding-top: 3px; color:rgb(76, 139, 223);">
-               
-                <th>Product Name</th>
-                <th colspan="2">Description</th>
-                <th>Stock</th>              
-                <th>Price in Rs</th>                            
-                <th>Rating</th> 
-                <th>Date Of Relese</th>                       
-            </tr>
-        </thead>
-        <hr>        
-        <center><h2 style="color:lightseagreen">IT Solution Hub Product List</h2></center>
-        <tbody>
-            {% for i in b %} 
-                <tr class="danger" style="padding: 4px;">
-                    
-                    <td>{{i.p_name}}</td>
-                    <td colspan="2">{{i.desc}}</td>
-                    <td>{{i.stock}}</td>                  
-                    <td>{{i.price}}</td>                                
-                    <td>{{i.rating|floatformat:1}}&nbsp&nbsp<i class="fas fa-star" aria-hidden="true"></i></td>
-                </strong>
-                <td>{{i.idate}}</td>  
-                </tr>  
-            {% endfor %}
-        </tbody>
-
+           
          <!-------------->
         {% elif x == "cmplist" %}                    
                     <thead>
@@ -179,28 +150,7 @@
                             </tr>  
                         {% endfor %}
                     </tbody>
-                {% elif x == "cmplist1" %}                    
-                    <thead>
-                        <tr style="border-bottom: 1px solid black; padding-top:3px; color:rgb(76, 139, 223);">
-                            <th>User Name</th>
-                            <th>Complaint type</th>
-                            <th colspan="2">Email of Engineer</th>
-                            <th>Description</th>
-                                      
-                        </tr>
-                    </thead>
-                    <hr>
-                    <center><h2 style="color:lightseagreen">IT Solution Hub Complaint List</h2></center>
-                    <tbody>
-                        {% for i in b %} 
-                            <tr class="info" style="padding-top:4px;">
-                                <td>{{i.u_name}}</td>
-                                <td>{{i.c_type}}</td>
-                                <td colspan="2">{{i.e_email}}</td>
-                                <td>{{i.c_desc}}</td>
-                            </tr>  
-                        {% endfor %}
-                    </tbody>
+                
 
 <!-------------->
             {% elif x == "tralist" %}                   

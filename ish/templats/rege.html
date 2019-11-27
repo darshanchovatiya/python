@@ -2,6 +2,7 @@
 {% load static %}
 {% block body %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
         $(document).ready(function(){
             $flag=1;
@@ -103,38 +104,13 @@
             
         });
 </script>
-<style>
-     
+<style>     
 </style>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
-<head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-       
-            <script type="text/javascript">
-              $(window).load(function() {
-                  $(".loader").fadeOut("slow");
-              });
-            </script>
-        
-        <style>
-            .loader {
-              position: fixed;
-              left: 0px;
-              top: 0px;
-              width: 100%;
-              height: 100%;
-              z-index: 9999;
-              background: url("{% static 'image/Preloader_3.gif' %}") 50% 50% no-repeat rgb(249,249,249);
-              opacity: .5;
-          }
-        </style>
-      </head>
-      <body style="margin-top: 180px">
-        <div class="loader"></div>
-
+<body style="margin-top: 180px">
 <div class="row">
     <div class="col-md-6 col-sm-12 col-lg-6 col-md-offset-3">
 		<div class="panel panel-success">
@@ -146,22 +122,7 @@
                 </script>
 				<form name="myform" data-toggle="validator" role="form" action=" " method="post"  id="contact_form">
                         {% csrf_token %}
-                        <style>
-                            #msg {display:none;color:red}
-                            </style>
-                        <p id="msg">WARNING! Caps lock is ON.</p>
-                        <script>
-                            var input = document.getElementById("contact_form");
-                            var text = document.getElementById("msg");
-                            input.addEventListener("keyup", function(event) {
-                            
-                            if (event.getModifierState("CapsLock")) {
-                                text.style.display = "block";
-                              } else {
-                                text.style.display = "none"
-                              }
-                            });
-                            </script>                                                     
+                                                                     
                         {% if messages %}
                             {% for  message in messages %}
                                 <div class="alert alert-{{message.tags}}">
@@ -173,28 +134,16 @@
                         <label for="myName">First Name *</label>
                         <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input id="myName" name="myName" placeholder="First Name" class="form-control alphaonly" data-validation="required" type="text" required>
-                                <script type="text/javascript">
-                                    $('.alphaonly').bind('keyup blur',function(){ 
-                                        var node = $(this);
-                                        node.val(node.val().replace(/[^a-z,A-Z]/g,'') ); }
-                                    );
-                                </script>
-                            </div>
+                                <input id="myName" name="myName" placeholder="First Name" class="form-control" data-validation="required" type="text" required>
+                        </div>
 						        <span id="error_name" class="text-danger"></span>
 					</div>
 					<div class="form-group">
                         <label for="City">City *</label>
                         <div class="input-group">
                                 <span class="input-group-addon"><i class="fas fa-map-marker-alt"></i></span>
-                                <input id="City" name="City" placeholder="City" data-validation="required" class="form-control alphaonly"  type="text" required>
-                                <script type="text/javascript">
-                                    $('.alphaonly').bind('keyup blur',function(){ 
-                                        var node = $(this);
-                                        node.val(node.val().replace(/[^a-z,A-Z]/g,'') ); }
-                                    );
-                                </script>
-                            </div>
+                                <input id="City" name="City" placeholder="City" data-validation="required" class="form-control"  type="text" required>
+                        </div>
 						<span id="error_City" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -204,10 +153,8 @@
                                 <select class="form-control" name="type" id="type" required>
                                 <option name="" value="" selected>Select Type</option>
                                 <option name="Os" value="Os">Os</option>
-                                <option name="Cameras" value="Cameras">Cameras</option>
                                 <option name="Hardware" value="Hardware">Hardware</option>
-                                <option name="Server" value="Server">Server</option>
-                                <option name="Other" value="Other">Other</option>
+                                <option name="Cameras" value="Cameras">Camaras</option>
                                 </select>
                             </div>
                     </div>
@@ -242,21 +189,12 @@
                                 }
                               }
                     </script>
-
-                    <script>
-                        function seetext(x){
-                            x.type = "text";
-                        }
-                        function seeasterisk(x){
-                           x.type = "password";
-                        }
-                    </script>
                     <div class="form-group">
                             <label for="Password">Password *</label>
                             <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-key"></i></span>
                                     <input onkeyup='check();' id="Password" minlength="8" maxlength="15" name="Password" data-validation="Password" placeholder="Password" class="form-control"  type="password" required>
-                                    <span class="input-group-addon"><i onmouseover="seetext(Password)" onmouseout="seeasterisk(Password)" class="fas fa-eye"></i></span>
+                                    
                             </div>
                             
                     </div>
@@ -265,19 +203,21 @@
                             <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-key"></i></span>
                                    <input onkeyup='check();' id="cpassword" minlength="8" maxlength="15" name="cpassword" placeholder="Conform Password" data-validation="password" class="form-control"  type="password" required>
-                                   <span class="input-group-addon"><i onmouseover="seetext(cpassword)" onmouseout="seeasterisk(cpassword)" class="fas fa-eye"></i></span>
-                                </div>
+                            </div>
                             <div class="help-block with-errors"></div>
                             <span id="Massage" class="text-danger"></span>
                     </div>
-                    <center><button type="submit" id="submit" class="btn btn-warning" >
+                    <hr>
+                    <div class="form-group">
+                        <!--<div class="g-recaptcha" style="margin-left: 150px;" data-sitekey="6LcwCsMUAAAAADB9eHqQFxaoVSHBJvb7sVe-T7lh"></div><br>-->
+                        <div class="g-recaptcha" style="margin-left: 150px;" data-sitekey="6Lfum8QUAAAAAHH6oLWtI0uNWu5RiYawnfyFIpEe"></div><br>
+                        <center><button type="submit" id="submit" class="btn btn-warning" >
                             SUBMIT &nbsp&nbsp&nbsp<span class="glyphicon glyphicon-send"></span></button>
                             &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  <button type="reset" id="reset" class="btn btn-warning" >
                             Cancel &nbsp&nbsp&nbsp<span class="glyphicon glyphicon-remove"></span></button>    
                     </center>
-                   
+                    </div>       
 				</form>
-
 			</div>
 		</div>
 	</div>

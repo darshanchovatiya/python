@@ -20,7 +20,7 @@ from django.core.mail import EmailMessage
 from django.db.models import Avg, Count, Min, Sum
 from clockwork import clockwork
 import json
-
+import requests
 from django.template import RequestContext
 #index View
 def index(request):
@@ -252,7 +252,7 @@ def about(request):
     return render(request,'about.html')
 
 #view for registration of user
-def regu(request):   
+def regu(request):
     if request.method=="POST":
         name = request.POST.get('myName','')
         City = request.POST.get('City','')
@@ -261,41 +261,53 @@ def regu(request):
         address = request.POST.get('address','')
         email = request.POST.get('email','')
         Password = request.POST.get('Password','')
-        if Uregiser.objects.filter(email = email).exists():            
-            if eregiser.objects.filter(contect = phone).exists():
-                messages.warning(request,f'Your Email and Phone Number Alrady Exists! Please Try Using Another')
-            else:
-                messages.warning(request,f'Your Email Alrady Exists! Please Try Using Another')
-            return render(request,'regu.html')
+        #recaptcha .....................................
+        clientkey=request.POST['g-recaptcha-response']
+        secretkey='6Lfum8QUAAAAAGIZc8SdrIoOLhMU16y0rDG7APu2'
+        #secretkey='6LcwCsMUAAAAAMzinhsp2Ak3Zyr9GIlv1-ssUr2S'
+        captchadata={
+                'secret':secretkey,
+                'response':clientkey
+        }
+        r=requests.post('https://www.google.com/recaptcha/api/siteverify',data=captchadata)
+        response=json.loads(r.text)
+        verify=response["success"]
+        if verify:
+            if Uregiser.objects.filter(email = email).exists():            
+                if eregiser.objects.filter(contect = phone).exists():
+                    messages.warning(request,f'Your Email and Phone Number Alrady Exists! Please Try Using Another')
+                else:
+                    messages.error(request,f'Your Email Alrady Exists! Please Try Using Another')
+                return render(request,'regu.html')
 
-        elif eregiser.objects.filter(email = email).exists():
-            if eregiser.objects.filter(contect = phone).exists():
-                messages.warning(request,f'Your Email and Phone Number Alrady Exists as a engineer! Please Try Using Another')
-            else:
-               messages.warning(request,f'Your Email Alrady Exists in Engineer! Please Try Using Another')
+            elif eregiser.objects.filter(email = email).exists():
+                if eregiser.objects.filter(contect = phone).exists():
+                    messages.warning(request,f'Your Email and Phone Number Alrady Exists as a engineer! Please Try Using Another')
+                else:
+                    messages.error(request,f'Your Email Alrady Exists in Engineer! Please Try Using Another')
+                return render(request,'regu.html')
+            elif head.objects.filter(email = email).exists():
+                messages.error(request,f'This email alrady reserverd for admin! Please Try Using Another')
+                return render(request,'rege.html')
+            elif Uregiser.objects.filter(contect = phone).exists():
+                messages.error(request,f'Your Mobile Number Alrady Registered!')
+                return render(request,'regu.html')
+            elif eregiser.objects.filter(contect = phone).exists():
+                messages.error(request,f'Your Mobile Number Alrady Registered!')
+                return render(request,'regu.html')
+            else:    
+                reg = Uregiser(u_name=name,city=City,area=address,contect=phone,pincode=Pincode,email=email,password=Password)
+                reg.save()
+                messages.success(request,'Account is Created !'+name)
+                subject = 'IT SOLUTION HUB'
+                message = ' Thanks For Registeation '
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [email]
+                send_mail( subject, message, email_from, recipient_list )
+                return render(request,'regu.html')
+        else:
+            messages.warning(request,'please verify yourself!')
             return render(request,'regu.html')
-        elif head.objects.filter(email = email).exists():
-            messages.warning(request,f'This email alrady reserverd for admin! Please Try Using Another')
-            return render(request,'rege.html')
-        elif Uregiser.objects.filter(contect = phone).exists():
-            messages.warning(request,f'Your Mobile Number Alrady Registered!')
-            return render(request,'regu.html')
-        elif eregiser.objects.filter(contect = phone).exists():
-            messages.warning(request,f'Your Mobile Number Alrady Registered!')
-            return render(request,'regu.html')
-        else:    
-            reg = Uregiser(u_name=name,city=City,area=address,contect=phone,pincode=Pincode,email=email,password=Password)
-            reg.save()
-            messages.success(request,'Account is Created !'+name)
-            subject = 'IT SOLUTION HUB'
-            message = ' Thanks For Registeation '
-            email_from = settings.EMAIL_HOST_USER
-            recipient_list = [email]
-            send_mail( subject, message, email_from, recipient_list )
-            return render(request,'regu.html')
-    else:
-        #messages.warning(request,f'Somthing Might Be Wrong Please Tray Again Later!')
-        return render(request,'regu.html')
     return render(request,'regu.html')
 
 #view for engineer register
@@ -307,75 +319,104 @@ def rege(request):
         phone = request.POST.get('phone','')
         email = request.POST.get('email','')
         Password = request.POST.get('Password','')
-        if eregiser.objects.filter(email = email).exists():
-            if eregiser.objects.filter(contect = phone).exists():
-                messages.warning(request,f'Your Email and Phone Number Alrady Exists! Please Try Using Another')
-            else:
-                messages.warning(request,f'Your Email Alrady Exists! Please Try Using Another')
-            return render(request,'rege.html')
-        elif Uregiser.objects.filter(email = email).exists():
-            if Uregiser.objects.filter(contect = phone).exists():
-                messages.warning(request,f'Your Email and Phone Number Alrady Exists as a user! Please Try Using Another')
-            else:
-                messages.warning(request,f'Your Email Alrady Exists as a ! Please Try Using Another')
-            return render(request,'rege.html')
-        elif head.objects.filter(email = email).exists():
-            messages.warning(request,f'This email alrady reserverd for admin! Please Try Using Another')
-            return render(request,'rege.html')
-        elif eregiser.objects.filter(contect = phone).exists():
-            messages.warning(request,f'Your Mobile Number Alrady Registered!')
-            return render(request,'rege.html')
-        elif Uregiser.objects.filter(contect = phone).exists():
-            messages.warning(request,f'Your Mobile Number Alrady Registered as a !')
-            return render(request,'rege.html')
-        else:    
-            reg = eregiser(e_name=name,city=City,e_type=etype,contect=phone,email=email,password=Password)
-            reg.save()            
-            messages.success(request,'your account created! Wait For Approval to Login '+name)
-            subject = 'IT SOLUTION HUB'
-            message = ' Thanks For Registeation '
-            email_from = settings.EMAIL_HOST_USER
-            recipient_list = [email]
-            send_mail( subject, message, email_from, recipient_list )
-            return render(request,'rege.html')            
+        #recaptcha .....................................
+        clientkey=request.POST['g-recaptcha-response']
+        secretkey='6Lfum8QUAAAAAGIZc8SdrIoOLhMU16y0rDG7APu2'
+        #secretkey='6LcwCsMUAAAAAMzinhsp2Ak3Zyr9GIlv1-ssUr2S'
+        captchadata={
+                'secret':secretkey,
+                'response':clientkey
+        }
+        r=requests.post('https://www.google.com/recaptcha/api/siteverify',data=captchadata)
+        response=json.loads(r.text)
+        verify=response["success"]
+        if verify:
+
+            if eregiser.objects.filter(email = email).exists():
+                if eregiser.objects.filter(contect = phone).exists():
+                    messages.warning(request,f'Your Email and Phone Number Alrady Exists! Please Try Using Another')
+                else:
+                    messages.warning(request,f'Your Email Alrady Exists! Please Try Using Another')
+                    return render(request,'rege.html')
+            elif Uregiser.objects.filter(email = email).exists():
+                if Uregiser.objects.filter(contect = phone).exists():
+                    messages.warning(request,f'Your Email and Phone Number Alrady Exists as a user! Please Try Using Another')
+                else:
+                    messages.warning(request,f'Your Email Alrady Exists as a ! Please Try Using Another')
+                    return render(request,'rege.html')
+            elif head.objects.filter(email = email).exists():
+                messages.warning(request,f'This email alrady reserverd for admin! Please Try Using Another')
+                return render(request,'rege.html')
+            elif eregiser.objects.filter(contect = phone).exists():
+                messages.warning(request,f'Your Mobile Number Alrady Registered!')
+                return render(request,'rege.html')
+            elif Uregiser.objects.filter(contect = phone).exists():
+                messages.warning(request,f'Your Mobile Number Alrady Registered as a !')
+                return render(request,'rege.html')
+            else:    
+                reg = eregiser(e_name=name,city=City,e_type=etype,contect=phone,email=email,password=Password)
+                reg.save()            
+                messages.success(request,'your account created! Wait For Approval to Login '+name)
+                subject = 'IT SOLUTION HUB'
+                message = ' Thanks For Registeation '
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [email]
+                send_mail( subject, message, email_from, recipient_list )
+                return render(request,'rege.html')
+        else:
+            messages.warning(request,'please verify yourself!')  
+            return render(request,'rege.html')  
     else:
-        #messages.warning(request,f'Somthing Might Be Wrong Please Tray Again Later!')
-        return render(request,'rege.html')
+        return render(request,'rege.html')  
     return render(request,'rege.html')
 
 #view for login. login for everyone
 def login(request):
     if request.method == 'POST':
-        if eregiser.objects.filter(email=request.POST['email'],password=request.POST['Password']).exists():
-            loge = eregiser.objects.get(email=request.POST['email'],password=request.POST['Password'])
-            if loge.status == 0:
-                messages.warning(request,'Your approval is panding')
-                return render(request,'login.html',{'dae':loge})
+        #recaptcha .....................................
+        clientkey=request.POST['g-recaptcha-response']
+        secretkey='6Lfum8QUAAAAAGIZc8SdrIoOLhMU16y0rDG7APu2'
+        #secretkey='6LcwCsMUAAAAAMzinhsp2Ak3Zyr9GIlv1-ssUr2S'
+        captchadata={
+                'secret':secretkey,
+                'response':clientkey
+        }
+        r=requests.post('https://www.google.com/recaptcha/api/siteverify',data=captchadata)
+        response=json.loads(r.text)
+        verify=response["success"]
+        if verify:
+            if eregiser.objects.filter(email=request.POST['email'],password=request.POST['Password']).exists():
+                loge = eregiser.objects.get(email=request.POST['email'],password=request.POST['Password'])
+                if loge.status == 0:
+                    messages.warning(request,'Your approval is panding')
+                    return render(request,'login.html',{'dae':loge})
+                else:
+                    request.session["lgne"] ='Welcome' + loge.e_name    
+                    request.session["prof"] = loge.email 
+                    request.session["type"] = loge.e_type
+                    request.session["acc"] = loge.e_name 
+                    request.session["eid"] = loge.e_id   
+                    return render(request,'index.html',{'dae':loge})
+            elif Uregiser.objects.filter(email=request.POST['email'],password=request.POST['Password']).exists():
+                loge = Uregiser.objects.get(email=request.POST['email'],password=request.POST['Password'])
+                request.session["lgnu"] ='Welcome' + loge.u_name    
+                request.session["prof"] = loge.email  
+                request.session["nm"] = loge.u_id 
+                request.session["unm"] = loge.u_name  
+                return render(request,'index.html',{'dae':loge}) 
+            elif head.objects.filter(email=request.POST['email'],password=request.POST['Password']).exists():
+                loge = head.objects.get(email=request.POST['email'],password=request.POST['Password'])
+                request.session["lgna"] ='Welcome' + loge.a_name 
+                request.session["prof"] = loge.email   
+                request.session["cont"] = loge.email    
+                request.session['contt'] = loge.contect       
+                return render(request,'index.html',{'dae':loge}) 
             else:
-                request.session["lgne"] ='Welcome' + loge.e_name    
-                request.session["prof"] = loge.email 
-                request.session["etype"] = loge.e_type
-                request.session["acc"] = loge.e_name 
-                request.session["eid"] = loge.e_id 
-                request.session["ty"]  = loge.e_type
-                return redirect('cmplist.html')
-        elif Uregiser.objects.filter(email=request.POST['email'],password=request.POST['Password']).exists():
-            loge = Uregiser.objects.get(email=request.POST['email'],password=request.POST['Password'])
-            request.session["lgnu"] ='Welcome' + loge.u_name    
-            request.session["prof"] = loge.email  
-            request.session["nm"] = loge.u_id 
-            request.session["unm"] = loge.u_name  
-            return redirect('index.html') 
-        elif head.objects.filter(email=request.POST['email'],password=request.POST['Password']).exists():
-            loge = head.objects.get(email=request.POST['email'],password=request.POST['Password'])
-            request.session["lgna"] ='Welcome' + loge.a_name 
-            request.session["prof"] = loge.email   
-            request.session["cont"] = loge.email    
-            request.session['contt'] = loge.contect       
-            return redirect('index.html') 
+                request.session.modified = True
+                messages.warning(request,'Invalid Username Or Password')
+                return render(request,'login.html')
         else:
-            request.session.modified = True
-            messages.warning(request,'Invalid Username Or Password')
+            messages.warning(request,'please verify yourself!')
             return render(request,'login.html')
     return render(request,'login.html')
 
@@ -855,10 +896,10 @@ def GeneratePDF(request,id,*args, **kwargs):
             else :
                 f=request.session["fdate"]  
                 l=request.session["ldate"] 
-                x = "itemlist1"
-                b = item.objects.filter(idate__range=(f,l))           
+                x = "itemlist"
+                d = item.objects.filter(idate__range=(f,l))           
                 context = {
-                    'b':b,
+                    'd':d,
                     'x':x,                   
                     'date':datetime.now()
                 } 
@@ -876,30 +917,55 @@ def GeneratePDF(request,id,*args, **kwargs):
             else :
                 f=request.session["fdate"]  
                 l=request.session["ldate"] 
-                x = "cmplist1"
-                b = complain.objects.filter(cdate__range=(f,l))           
+                x = "cmplist"
+                d = complain.objects.filter(cdate__range=(f,l))           
                 context = {
-                    'b':b,
+                    'd':d,
                     'x':x,                   
                     'date':datetime.now()
                 } 
         elif id == 5:            
-            x =  "tralist"
-            d = transection.objects.all() 
-            context = {
-                'd':d,
-                'x':x,
-                'date':datetime.now()
-            } 
+            if request.session["fdate"] == '' and request.session["ldate"] == '': 
+                f=request.session["fdate"]  
+                l=request.session["ldate"] 
+                x =  "tralist"
+                d = transection.objects.all() 
+                context = {
+                    'd':d,
+                    'x':x,
+                    'date':datetime.now()
+                } 
+            else :
+                f=request.session["fdate"]  
+                l=request.session["ldate"] 
+                x = "tralist"
+                d = transection.objects.filter(tdate__range=(f,l))           
+                context = {
+                    'd':d,
+                    'x':x,                   
+                    'date':datetime.now()
+                } 
         elif id == 6:           
-            x =  "ordlist"
-            d = order.objects.all() 
-            context = {
-                'd':d,
-                'x':x,
-                'date':datetime.now()
-            }  
-        
+            if request.session["fdate"] == '' and request.session["ldate"] == '': 
+                f=request.session["fdate"]  
+                l=request.session["ldate"] 
+                x ="ordlist"             
+                d = order.objects.all() 
+                context = {
+                    'd':d,
+                    'x':x,
+                    'date':datetime.now()
+            } 
+            else :
+                f=request.session["fdate"]  
+                l=request.session["ldate"] 
+                x = "ordlist"
+                d = order.objects.filter(odate__range=(f,l))           
+                context = {
+                    'd':d,
+                    'x':x,                   
+                    'date':datetime.now()
+                } 
         template = get_template('invioce.html')      
         html = template.render(context)
         pdf = render_to_pdf('invioce.html', context)

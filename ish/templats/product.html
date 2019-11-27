@@ -51,7 +51,7 @@
 <div class="se-pre-con" id="contents">
 <div class="conatiner-fluide" style="margin-top: 160px">
  
-  <div class="row text-center col-md-10" style="margin-left: 100px;margin-bottom:40px"><input class="form-control" id="myInput" type="text" placeholder="Search.."> </div>
+  <div class="row text-center col-md-10" style="margin-left: 8%;margin-bottom:5%; margin-right: 8%"><input class="form-control" id="myInput" type="text" placeholder="Search.."> </div>
   <div  class="row text-center">    
     <div class="col-md-12">     
     {% for i in items %}
@@ -59,7 +59,7 @@
         <div class="thumbnail"  id="myList">
           <img src="/media/{{i.image}}" alt="{{i.prod_name}}" width="300" height="150">
           <p><strong>{{i.p_name}}</strong></p>
-          <p><b>Price:Rs {{i.price}}/-</b></p>
+          <p><b>Price:{{i.price}}/-Rs Only</b></p>
           {% if i.rating >= 4.5  %}
             <p style="color: red">Rating:{{i.rating|floatformat:1}}<i class="fas fa-star" aria-hidden="true"></i></p> 
           {% elif i.rating < 4.5 and i.rating >= 3 %}
