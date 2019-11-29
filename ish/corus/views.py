@@ -655,7 +655,7 @@ def camlist(request):
 def cmplist(request):  
     cn = 0
     request.session["notc"] = 0
-    istekler = complain.objects.filter(c_type = request.session["ty"])
+    istekler = complain.objects.filter(c_type = request.session["type"])
     for i in istekler:    
         if i.status == 0:
             cn = cn + 1
